@@ -1,2 +1,0 @@
-# Amazon
-Final Web Project
