@@ -6,13 +6,13 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 	private Connection connection;
-	private static DBConnection theChosenOneDBConnection;
+	private static DBConnection DBConnection;
 	
-	private static final String DB_HOSTNAME = "192.168.8.22";
+	private static final String DB_HOSTNAME = "localhost";
 	private static final String DB_PORT = "3306";
-	private static final String DATABASE = "hr";
+	private static final String DATABASE = "amazon";
 	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "root";
+	private static final String DB_PASSWORD = "1234";
 	
 	private DBConnection() {
 		try {
@@ -28,10 +28,10 @@ public class DBConnection {
 	}
 	
 	public synchronized static DBConnection getInstance() {
-		if (theChosenOneDBConnection == null) {
-			theChosenOneDBConnection = new DBConnection();
+		if (DBConnection == null) {
+			DBConnection = new DBConnection();
 		}
-		return theChosenOneDBConnection;
+		return DBConnection;
 	}
 
 	public Connection getConnection() {

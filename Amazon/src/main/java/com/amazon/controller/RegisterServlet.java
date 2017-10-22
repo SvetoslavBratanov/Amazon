@@ -27,6 +27,7 @@ public class RegisterServlet extends HttpServlet {
 		String email = req.getParameter("email");
 		String name = req.getParameter("name");
 		String password = req.getParameter("password");
+		resp.getWriter().println(name + " " + password);
 		try {
 			
 			new UserDAO().registerUser(new User(name, email, password));

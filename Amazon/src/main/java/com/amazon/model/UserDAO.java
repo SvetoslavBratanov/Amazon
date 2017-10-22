@@ -11,7 +11,7 @@ import com.amazon.connectionDB.DBConnection;
 
 public class UserDAO {
 
-	private static final String INSERT_USER_SQL = "INSERT INTO users VALUES (null, ?, md5(?))";
+	private static final String INSERT_USER_SQL = "INSERT INTO users(user_name, email, password, isAdmin) VALUES (?, ?, md5(?), ?)";
 	private static final String SELECT_USER_SQL = "SELECT id FROM users WHERE email = ? AND password = md5(?)";
 
 	public int registerUser(User user) throws UserException {
@@ -19,8 +19,10 @@ public class UserDAO {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, user.getEmail());
-			ps.setString(2, user.getPassword());
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getEmail());
+			ps.setString(3, user.getPassword());
+			ps.setBoolean(4, false);
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();
