@@ -5,6 +5,9 @@ public class User {
 	private String name;
 	private String password;
 	private String email;
+	private boolean isAdmin;
+	private String phoneNumber;
+	private Address address;
 
 	public User(String name, String password, String email) {
 		this.id = 0;
@@ -12,6 +15,31 @@ public class User {
 		this.password = password;
 		this.email = email;
 	}
+
+	
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 
 
 	public int getId() {
