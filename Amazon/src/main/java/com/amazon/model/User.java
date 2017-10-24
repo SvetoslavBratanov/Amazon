@@ -25,7 +25,10 @@ public class User {
 
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		
+		if (validateString(phoneNumber)) {
+			this.phoneNumber = phoneNumber;
+		}
 	}
 
 
@@ -65,7 +68,7 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		if (validateString(email)) {
+		if (validateString(email) ) {
 			this.email = email;
 		}
 	}
@@ -76,7 +79,9 @@ public class User {
 
 
 	public void setName(String name) {
-		this.name = name;
+		if (validateString(email)) {
+			this.name = name;
+		}
 	}
 
 
