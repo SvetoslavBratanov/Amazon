@@ -1,5 +1,7 @@
 package com.amazon.model;
 
+import com.amazon.exception.InvalidInfoException;
+
 public class User {
 	private int id;
 	private String name;
@@ -13,11 +15,11 @@ public class User {
 		
 	}
 
-	public User(String name, String password, String email) {
+	public User(String name, String password, String email) throws InvalidInfoException {
 		this.id = 0;
-		this.name = name;
-		this.password = password;
-		this.email = email;
+		this.setName(name);
+		this.setPassword(password);
+		this.setEmail(email);
 	}
 
 	
@@ -28,10 +30,12 @@ public class User {
 
 
 
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) throws InvalidInfoException {
 		
 		if (validateString(phoneNumber)) {
 			this.phoneNumber = phoneNumber;
+		} else {
+			throw new InvalidInfoException();
 		}
 	}
 
@@ -65,15 +69,19 @@ public class User {
 		this.id = id;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password) throws InvalidInfoException {
 		if (validateString(password)) {
 			this.password = password;
+		} else {
+			throw new InvalidInfoException();
 		}
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws InvalidInfoException {
 		if (validateString(email) ) {
 			this.email = email;
+		} else {
+			throw new InvalidInfoException();
 		}
 	}
 
@@ -82,15 +90,17 @@ public class User {
 	}
 
 
-	public void setName(String name) {
+	public void setName(String name) throws InvalidInfoException {
 		if (validateString(email)) {
 			this.name = name;
+		} else {
+			throw new InvalidInfoException();
 		}
 	}
 
 
 	private static boolean validateString(String string) {
-		return (string != null) && (string.length() > 0);
+		return (string != null) && (string.length() > 5);
 	}
 
 

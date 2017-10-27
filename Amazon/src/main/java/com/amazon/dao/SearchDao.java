@@ -34,9 +34,6 @@ public class SearchDao {
 //
 //			}
 		
-		for(int i=0;i<10;i++) {
-			movies.add(new Movie("ace ventura"+i, "ace", 50, LocalDateTime.now(), 56, 10000, 5, 4, 85555, "engl"));
-		}
 
 //		} catch (SQLException e) {
 //			e.printStackTrace();

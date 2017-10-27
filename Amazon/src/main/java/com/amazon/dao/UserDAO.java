@@ -1,11 +1,19 @@
 package com.amazon.dao;
 
+import java.security.Security;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.MimeMessage;
+import javax.websocket.Session;
+
+import org.springframework.mail.javamail.InternetAddressEditor;
 import org.springframework.stereotype.Service;
 
 import com.amazon.db_connection.DBConnection;
@@ -36,7 +44,6 @@ public class UserDAO {
 		}
 		try {
 			ps.setString(1, user.getName());
-
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.setBoolean(4, false);
