@@ -5,7 +5,7 @@ public class Address {
 	private int id;
 	private String street;
 	private int number;
-	City city;
+	private City city;
 	
 	
 	public Address(int id, String street, int number, City city) {

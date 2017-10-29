@@ -1,28 +1,28 @@
 package com.amazon.exception;
 
-public class ProductException extends Exception {
+public class AuthorException extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2724481731007396885L;
+	private static final long serialVersionUID = 6086734380316639023L;
 
-	public ProductException() {
+	public AuthorException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductException(String message, Throwable cause) {
+	public AuthorException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductException(String message) {
+	public AuthorException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductException(Throwable cause) {
+	public AuthorException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,6 +1,5 @@
 package com.amazon.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,15 +16,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.stereotype.Service;
 
-import com.amazon.db_connection.DBConnection;
 import com.amazon.model.User;
 
 @Service
-public class UserDAO {
+public class UserDAO extends AbstractDAO implements IUserDAO{
 
 	private static final String INSERT_USER_SQL = "INSERT INTO users(user_name, email, password, isAdmin) VALUES (?, ?, md5(?), ?);";
-
-	public boolean write(User user) {
+	
+	public boolean addUser(User user) {
 
 		try {
 			if (checkEmail(user.getEmail())) {
@@ -35,10 +33,10 @@ public class UserDAO {
 			e1.printStackTrace();
 		}
 
-		Connection connection = DBConnection.getInstance().getConnection();
+		
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
+			ps = getConnection().prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,7 +60,7 @@ public class UserDAO {
 
 	public String loginUser(User user) {
 		try {
-			if(checkUser(user)){
+			if (checkUser(user)) {
 				return "home";
 			}
 		} catch (SQLException e) {
@@ -71,11 +69,10 @@ public class UserDAO {
 		return "login";
 	}
 
-	private boolean checkEmail(String email) throws SQLException {
-		Connection connection = DBConnection.getInstance().getConnection();
+	public boolean checkEmail(String email) throws SQLException {
 		String query = "SELECT email  FROM users WHERE email ='" + email + "'";
 		ResultSet rs = null;
-		try (Statement stmt = connection.createStatement()) {
+		try (Statement stmt = getConnection().createStatement()) {
 			rs = stmt.executeQuery(query);
 			return rs.first();
 		} finally {
@@ -86,12 +83,11 @@ public class UserDAO {
 
 	}
 
-	private boolean checkUser(User user) throws SQLException {
-		Connection connection = DBConnection.getInstance().getConnection();
+	public boolean checkUser(User user) throws SQLException {
 		String query = "SELECT email ,password FROM users WHERE email ='" + user.getEmail() + "' and password =MD5('"
 				+ user.getPassword() + "');";
 		ResultSet rs = null;
-		try (Statement stmt = connection.createStatement()) {
+		try (Statement stmt = getConnection().createStatement()) {
 			rs = stmt.executeQuery(query);
 			return rs.next();
 		} finally {
@@ -100,40 +96,36 @@ public class UserDAO {
 			}
 		}
 	}
-	
+
 	public void sendEmail(String email) {
 
-        final String username = "deniittalents@gmail.com";
-        final String password = "ittalents";
+		final String username = "deniittalents@gmail.com";
+		final String password = "ittalents";
 
-        Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+		Properties props = new Properties();
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-        Session session = Session.getInstance(props,
-          new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-          });
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
 
-        try {
+		try {
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("deniittalents@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(email));
-            message.setSubject("Registration");
-            message.setText("Your registration was successfull"
-                + "\n\n !");
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("deniittalents@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject("Registration");
+			message.setText("Your registration was successfull" + "\n\n !");
 
-            Transport.send(message);
+			Transport.send(message);
 
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }	
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
-

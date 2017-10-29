@@ -18,5 +18,9 @@ public class InvalidInfoException extends Exception {
 	public InvalidInfoException(String message) {
 		super(message);
 	}
+	
+	public InvalidInfoException(Throwable cause) {
+		super(cause);
+	}
 
 }

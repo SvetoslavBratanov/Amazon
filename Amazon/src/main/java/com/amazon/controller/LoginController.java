@@ -51,7 +51,7 @@ public class LoginController {
 		} catch (InvalidInfoException e) {
 			return "loginError";
 		}	
-		if (!this.userDAO.write(user)) {
+		if (!this.userDAO.addUser(user)) {
 			return "home";
 		}
 		return "login";
