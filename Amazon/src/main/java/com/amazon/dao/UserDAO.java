@@ -38,7 +38,6 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 		try {
 			ps = getConnection().prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -52,7 +51,6 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 			rs.next();
 			sendEmail(user.getEmail());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -61,7 +59,7 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 	public String loginUser(User user) {
 		try {
 			if (checkUser(user)) {
-				return "home";
+				return "index";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,7 +118,7 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 			message.setFrom(new InternetAddress("deniittalents@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("Registration");
-			message.setText("Your registration was successfull" + "\n\n !");
+			message.setText("Your registration was successfull!");
 
 			Transport.send(message);
 

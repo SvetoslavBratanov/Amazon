@@ -40,7 +40,16 @@ public class LoginController {
 		}
 		return this.userDAO.loginUser(user);
 	}
+	
+	
 
+	@RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
+	public ModelAndView registrationTemplate() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("registration");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(HttpServletRequest request) {
 		User user = new User();
@@ -52,8 +61,9 @@ public class LoginController {
 			return "loginError";
 		}	
 		if (!this.userDAO.addUser(user)) {
-			return "home";
+			return "index";
 		}
-		return "login";
+		return "/registration";
 	}
 }
+	
