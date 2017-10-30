@@ -15,12 +15,12 @@ textarea {
 }
 
 ::-moz-selection {
-  background: #b3d4fc;
+  background: #82f2e1;
   text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
+  background: #82f2e1;
   text-shadow: none;
 }
 
@@ -769,7 +769,7 @@ textarea {
 }
 
 .main-footer {
-  background-color: #2d3e50;
+  background-color: #366ec1;
   padding: 50px 0 0 0;
 }
 .main-footer ul {
