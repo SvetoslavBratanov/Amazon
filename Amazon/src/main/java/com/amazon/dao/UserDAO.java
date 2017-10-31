@@ -64,7 +64,7 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "login";
+		return "index";
 	}
 
 	public boolean checkEmail(String email) throws SQLException {

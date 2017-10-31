@@ -36,7 +36,7 @@ public class LoginController {
 			user.setEmail(request.getParameter("email"));
 			user.setPassword(request.getParameter("password"));
 		} catch (InvalidInfoException e) {
-			return "loginError";
+			return "index";
 		}
 		return this.userDAO.loginUser(user);
 	}
@@ -58,12 +58,12 @@ public class LoginController {
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));	
 		} catch (InvalidInfoException e) {
-			return "loginError";
+			return "index";
 		}	
 		if (!this.userDAO.addUser(user)) {
 			return "index";
 		}
-		return "/registration";
+		return "index";
 	}
 }
 	
