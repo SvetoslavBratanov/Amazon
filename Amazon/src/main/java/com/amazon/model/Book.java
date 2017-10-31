@@ -14,6 +14,10 @@ public class Book extends Product{
 		this.authors_id = authors_id;
 	}
 
+	public Book(String name, String description, double price, LocalDateTime date, int quantaty, int raiting, int category_id) {
+		super(name, description, price, date, quantaty, raiting, category_id);
+		
+	}
 	public int getGenres_id() {
 		return genres_id;
 	}

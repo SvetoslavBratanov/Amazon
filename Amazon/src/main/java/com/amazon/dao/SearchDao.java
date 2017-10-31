@@ -49,18 +49,39 @@ public class SearchDao {
 	public List<Book> getAllBooks(){
 		List<Book> books = new ArrayList<>();
 		Connection connection = DBConnection.getInstance().getConnection();
-
+		Statement st = null;
 		try {
-			Statement st = connection.createStatement();
+			st = connection.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String query = "SELECT * FROM books";
 		
-		for(int i = 0; i < 100; i++) {
-			books.add(new Book("kniga", "kniga", i, LocalDateTime.now(), 50, 80, 5, 58, 8));
+		String query = "SELECT * From amazon.products p JOIN amazon.categories k ON (p.category_id = k.id) WHERE k.category_name LIKE 'books';";
+		try {
+			ResultSet res = st.executeQuery(query);
+			while (res.next()) {
+				String name = res.getString("product_name");
+				String description = res.getString("description");
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int category_id = res.getInt("category_id");
+				//int authors_id = res.getInt("author_id");
+				int raiting = res.getInt("star_raiting");
+				//int genres_id = res.getInt("genre_id");
+				books.add(new Book(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id));
+				// Productite da sa final, v konstruktura sys set=eri i proverki
+
+				//movies.add(new Movie(id, run_time_in_minutes, name, language));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+//		for(int i = 0; i < 100; i++) {
+//			books.add(new Book("kniga", "kniga", i, LocalDateTime.now(), 50, 80, 5, 58, 8));
+//		}
 		return books;
 	}
 }

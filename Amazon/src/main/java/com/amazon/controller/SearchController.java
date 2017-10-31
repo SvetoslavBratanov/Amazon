@@ -27,9 +27,14 @@ public class SearchController {
 		return searchDao.getAllMovies();
 	}
 	
-	@RequestMapping(value = "/books/{page}", method = RequestMethod.GET)
-	public List<Book> getAllBooks(@PathVariable(name="page")int page, String pattern){
-		return searchDao.getAllBooks().subList((page -1)*pageSize, page*pageSize);
+//	@RequestMapping(value = "/books/{page}", method = RequestMethod.GET)
+//	public List<Book> getAllBooks(@PathVariable(name="page")int page, String pattern){
+//		return searchDao.getAllBooks().subList((page -1)*pageSize, page*pageSize);
+//	}
+	
+	@RequestMapping(value = "/books/", method = RequestMethod.GET)
+	public List<Book> getAllBooks(){
+		return searchDao.getAllBooks();
 	}
 	
 }
