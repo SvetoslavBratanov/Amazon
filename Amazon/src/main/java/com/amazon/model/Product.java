@@ -1,5 +1,6 @@
 package com.amazon.model;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import com.amazon.exception.ProductException;
@@ -11,11 +12,9 @@ public class Product {
 	private double price;
 	private LocalDateTime date;
 	private int quantaty;
-	private int time_sold;
 	private int raiting;
-	private String poster;
 	private int category_id;
-	
+	private String poster;
 	
 	public Product( String name, String description, double price, LocalDateTime date, int quantaty,
 			int raiting, int category_id, String poster) {
@@ -30,16 +29,9 @@ public class Product {
 		this.poster = poster;
 	}
 
-	public Product() {
+	public Product(int int1, String string, String string2, double double1, Date date2, int int2, int int3, int int4,
+			String string3, int int5) {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public int getTime_sold() {
-		return time_sold;
-	}
-
-	public void setTime_sold(int time_sold) {
-		this.time_sold = time_sold;
 	}
 
 	public int getProduct_id() {
