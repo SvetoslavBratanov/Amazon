@@ -59,7 +59,7 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 	public String loginUser(User user) {
 		try {
 			if (checkUser(user)) {
-				return "index";
+				return "redirect:/index";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
