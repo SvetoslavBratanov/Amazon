@@ -1,15 +1,18 @@
+<!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
-<title>KOZA</title>
+<title>Books</title>
 </head>
-
 <body>
 	<div th:each="book : ${books}">
-		<span th:text="${book.name}">Some default text here</span>
+		<a
+				href="#"> <img th:src="${book.poster}" width="50"
+					height="50">
+          <span th:utext=${book.name}></span>
+			</a>
+
+
 	</div>
-
 </body>
-
 </html>
