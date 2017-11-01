@@ -52,11 +52,12 @@ public class LoginController {
 			user.setEmail(request.getParameter("email"));
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));
+			//System.err.println("adasha shte nameri greshkata");
 		} catch (InvalidInfoException e) {
-			return "error";
+			return "index";
 		}
 		if (!this.userDAO.addUser(user)) {
-			return "error";
+			return "index";
 		}
 		return "index";
 	}

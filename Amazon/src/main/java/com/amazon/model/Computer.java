@@ -15,6 +15,10 @@ public class Computer extends Product{
 		this.processor = processor;
 		this.ram = ram;
 	}
+	public Computer(String name, String description, double price, LocalDateTime now, int quantaty, int raiting,
+			int category_id, String poster) {
+		super(name, description, price, now, quantaty, raiting, category_id, poster);
+	}
 	public int getRam() {
 		return ram;
 	}

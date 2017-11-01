@@ -43,8 +43,19 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/computers", method = RequestMethod.GET)
-	public List<Computer> getAllComputers() {
-		return searchDao.getAllComputers();
+	public String getAllComputers(Model model) {
+		List<Computer> computers = searchDao.getAllComputers();
+		//System.err.println(computers.get(0).getPoster());
+		model.addAttribute("computers", computers);
+		return "computers";
+	}
+	
+	@RequestMapping(value = "/movies", method = RequestMethod.GET)
+	public String getAllMovies(Model model) {
+		List<Movie> movies = searchDao.getAllMovies();
+		//System.err.println(movies.get(0).getPoster());
+		model.addAttribute("movies", movies);
+		return "movies";
 	}
 
 }

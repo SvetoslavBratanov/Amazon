@@ -15,6 +15,11 @@ public class Movie extends Product{
 		this.language = language;
 	}
 
+	public Movie(String name, String description, double price, LocalDateTime now, int quantaty, int raiting,
+			int category_id, String poster) {
+		super(name, description, price, now, quantaty, raiting, category_id, poster);
+	}
+
 	public int getGenres_id() {
 		return genres_id;
 	}
@@ -38,5 +43,7 @@ public class Movie extends Product{
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+	
+	
 
 }

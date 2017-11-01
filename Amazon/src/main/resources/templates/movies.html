@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:each="movie : ${movies}">
+		<a href="#"> <img th:src="${movie.poster}" width="50" height="50">
+			<span th:utext=${movie.name}></span>
+		</a>
+	</div>
+</body>
+</html>
