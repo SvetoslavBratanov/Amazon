@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.amazon.db_connection.DBConnection;
 import com.amazon.model.Book;
 import com.amazon.model.Computer;
 import com.amazon.model.Movie;
+import com.amazon.model.Product;
 
 @Service
 public class SearchDao {
@@ -21,7 +23,7 @@ public class SearchDao {
 	public List<Movie> getAllMovies() {
 		List<Movie> movies = new ArrayList<>();
 		try (Connection connection = DBConnection.getInstance().getConnection()) {
-			String query = "SELECT * FROM amazon.movies m JOIN amazon.categories k ON (m.category_id = k.id) WHERE category_name LIKE movies";
+			String query = "SELECT * FROM amazon.movies m JOIN amazon.categories k ON (m.categories_id = k.id) WHERE category_name LIKE movies";
 
 			Statement st = connection.createStatement();
 			ResultSet res = st.executeQuery(query);
@@ -31,26 +33,24 @@ public class SearchDao {
 				String language = res.getString("language");
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
-				int category_id = res.getInt("category_id");
+				int category_id = res.getInt("categories_id");
 				int raiting = res.getInt("star_raiting");
 				int run_time_in_minutes = res.getInt("run_time_in_minutes");
 				int genres_id = res.getInt("genres_id");
 				String poster = res.getString("poster");
-				Timestamp date = res.getTimestamp("publish_date");
+				// Timestamp date = res.getTimestamp("publish_date");
 
-				movies.add(new Movie(name, description, price, date.toLocalDateTime(), quantaty, raiting, category_id, genres_id, run_time_in_minutes, language, poster));
+				movies.add(new Movie(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
+						genres_id, run_time_in_minutes, language, poster));
 			}
-		
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return movies;
 	}
-	
-	
-	
-	public List<Book> getAllBooks(){
+
+	public List<Book> getAllBooks() {
 		List<Book> books = new ArrayList<>();
 		Connection connection = DBConnection.getInstance().getConnection();
 		Statement st = null;
@@ -60,8 +60,8 @@ public class SearchDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		String query = "SELECT * From amazon.products p JOIN amazon.categories k ON (p.category_id = k.id) WHERE k.category_name LIKE 'books';";
+
+		String query = "SELECT * From amazon.products p JOIN amazon.categories k ON (p.categories_id = k.id) WHERE k.category_name LIKE 'books';";
 		try {
 			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
@@ -69,12 +69,13 @@ public class SearchDao {
 				String description = res.getString("description");
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
-				int category_id = res.getInt("category_id");
-				Timestamp date = res.getTimestamp("publish_date");
+				int category_id = res.getInt("categories_id");
+				// Timestamp date = res.getTimestamp("publish_date");
 				int raiting = res.getInt("star_raiting");
 				String poster = res.getString("poster");
 
-				books.add(new Book(name, description, price, date.toLocalDateTime(), quantaty, raiting, category_id, poster));
+				books.add(new Book(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
+						poster));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,9 +83,8 @@ public class SearchDao {
 
 		return books;
 	}
-	
 
-	public List<Computer> getAllComputers(){
+	public List<Computer> getAllComputers() {
 		List<Computer> computers = new ArrayList<>();
 		Connection connection = DBConnection.getInstance().getConnection();
 		Statement st = null;
@@ -93,8 +93,47 @@ public class SearchDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		String query = "SELECT * From amazon.products p JOIN amazon.categories k ON (p.category_id = k.id) WHERE k.category_name LIKE 'computers';";
+
+		String query = "SELECT * From amazon.products p JOIN amazon.categories k ON (p.categories_id = k.id) WHERE k.category_name LIKE 'computers';";
+		try {
+			ResultSet res = st.executeQuery(query);
+			while (res.next()) {
+				String name = res.getString("product_name");
+				String description = res.getString("description");
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int category_id = res.getInt("categories_id");
+				int ram = res.getInt("RAM");
+				int ssd = res.getInt("SSD");
+				String operation_system = res.getString("operation_system");
+				int raiting = res.getInt("star_raiting");
+				String processor = res.getString("processor");
+				Timestamp date = res.getTimestamp("publish_date");
+				String poster = res.getString("poster");
+
+				computers.add(new Computer(name, description, price, date.toLocalDateTime(), quantaty, raiting,
+						category_id, ram, ssd, processor, operation_system, poster));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return computers;
+	}
+
+	public List<Product> getProductByName(String string) {
+		List<Product> products = new ArrayList<>();
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement st = null;
+		try {
+			st = connection.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String query = "SELECT * From amazon.products WHERE product_name LIKE '% " + string
+				+ "'\n OR description   LIKE '% " + string + "'\n;";
+
 		try {
 			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
@@ -111,13 +150,15 @@ public class SearchDao {
 				Timestamp date = res.getTimestamp("publish_date");
 				String poster = res.getString("poster");
 
-				computers.add(new Computer(name, description, price, date.toLocalDateTime(), quantaty, raiting, category_id, ram, ssd, processor, operation_system, poster));
+				// computers.add(new Computer(name, description, price, date.toLocalDateTime(),
+				// quantaty, raiting, category_id, ram, ssd, processor, operation_system,
+				// poster));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return computers;
+		return products;
 	}
 
 }

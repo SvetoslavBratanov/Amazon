@@ -22,4 +22,12 @@ public class HomeController {
 		modelAndView.setViewName("mail");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = {"/about"}, method = RequestMethod.GET)
+	public ModelAndView aboutTemplate() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("about");
+		return modelAndView;
+	}
+	
 }
