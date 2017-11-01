@@ -8,8 +8,8 @@ public class Movie extends Product{
 	private String language; 
 	
 	public Movie(String name, String description, double price, LocalDateTime date, int quantaty, int raiting,
-			int category_id, int genres_id, int run_time_in_minutes, String language) {
-		super(name, description, price, date, quantaty, raiting, category_id);
+			int category_id, int genres_id, int run_time_in_minutes, String language, String poster) {
+		super(name, description, price, date, quantaty, raiting, category_id, poster);
 		this.genres_id = genres_id;
 		this.run_time_int_minutes = run_time_in_minutes;
 		this.language = language;

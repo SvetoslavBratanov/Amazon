@@ -15,4 +15,11 @@ public class HomeController {
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = {"/mail"}, method = RequestMethod.GET)
+	public ModelAndView mailTemplate() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mail");
+		return modelAndView;
+	}
 }

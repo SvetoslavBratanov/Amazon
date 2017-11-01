@@ -8,14 +8,14 @@ public class Book extends Product{
 	private int authors_id;
 	
 	public Book(String name, String description, double price, LocalDateTime date, int quantaty, int raiting,
-			int category_id, int genres_id, int authors_id) {
-		super(name, description, price, date, quantaty, raiting, category_id);
+			int category_id, int genres_id, int authors_id, String poster) {
+		super(name, description, price, date, quantaty, raiting, category_id, poster);
 		this.genres_id = genres_id;
 		this.authors_id = authors_id;
 	}
 
-	public Book(String name, String description, double price, LocalDateTime date, int quantaty, int raiting, int category_id) {
-		super(name, description, price, date, quantaty, raiting, category_id);
+	public Book(String name, String description, double price, LocalDateTime date, int quantaty, int raiting, int category_id,  String poster) {
+		super(name, description, price, date, quantaty, raiting, category_id, poster);
 		
 	}
 	public int getGenres_id() {

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.amazon.db_connection.DBConnection;
 import com.amazon.model.Book;
+import com.amazon.model.Computer;
 import com.amazon.model.Movie;
 
 @Service
@@ -20,21 +21,24 @@ public class SearchDao {
 	public List<Movie> getAllMovies() {
 		List<Movie> movies = new ArrayList<>();
 		try (Connection connection = DBConnection.getInstance().getConnection()) {
-			String query = "SELECT * FROM movies";
+			String query = "SELECT * FROM amazon.movies m JOIN amazon.categories k ON (m.category_id = k.id) WHERE category_name LIKE movies";
 
 			Statement st = connection.createStatement();
 			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
-				int id = res.getInt("id");
-				int run_time_in_minutes = res.getInt("run_time_in_minutes");
-				String name = res.getString("name");
+				String name = res.getString("product_name");
+				String description = res.getString("description");
 				String language = res.getString("language");
-				// trqbva da join-em s drugata tablica
-				String genre = res.getString("genre");
-				// Productite da sa final, v konstruktura sys set=eri i proverki
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int category_id = res.getInt("category_id");
+				int raiting = res.getInt("star_raiting");
+				int run_time_in_minutes = res.getInt("run_time_in_minutes");
+				int genres_id = res.getInt("genres_id");
+				String poster = res.getString("poster");
+				Timestamp date = res.getTimestamp("publish_date");
 
-				//movies.add(new Movie(id, run_time_in_minutes, name, language));
-
+				movies.add(new Movie(name, description, price, date.toLocalDateTime(), quantaty, raiting, category_id, genres_id, run_time_in_minutes, language, poster));
 			}
 		
 
@@ -66,22 +70,54 @@ public class SearchDao {
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
 				int category_id = res.getInt("category_id");
-				//int authors_id = res.getInt("author_id");
+				Timestamp date = res.getTimestamp("publish_date");
 				int raiting = res.getInt("star_raiting");
-				//int genres_id = res.getInt("genre_id");
-				books.add(new Book(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id));
-				// Productite da sa final, v konstruktura sys set=eri i proverki
+				String poster = res.getString("poster");
 
-				//movies.add(new Movie(id, run_time_in_minutes, name, language));
-
+				books.add(new Book(name, description, price, date.toLocalDateTime(), quantaty, raiting, category_id, poster));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		for(int i = 0; i < 100; i++) {
-//			books.add(new Book("kniga", "kniga", i, LocalDateTime.now(), 50, 80, 5, 58, 8));
-//		}
+
 		return books;
 	}
+	
+
+	public List<Computer> getAllComputers(){
+		List<Computer> computers = new ArrayList<>();
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement st = null;
+		try {
+			st = connection.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String query = "SELECT * From amazon.products p JOIN amazon.categories k ON (p.category_id = k.id) WHERE k.category_name LIKE 'computers';";
+		try {
+			ResultSet res = st.executeQuery(query);
+			while (res.next()) {
+				String name = res.getString("product_name");
+				String description = res.getString("description");
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int category_id = res.getInt("category_id");
+				int ram = res.getInt("RAM");
+				int ssd = res.getInt("SSD");
+				String operation_system = res.getString("operation_system");
+				int raiting = res.getInt("star_raiting");
+				String processor = res.getString("processor");
+				Timestamp date = res.getTimestamp("publish_date");
+				String poster = res.getString("poster");
+
+				computers.add(new Computer(name, description, price, date.toLocalDateTime(), quantaty, raiting, category_id, ram, ssd, processor, operation_system, poster));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return computers;
+	}
+
 }

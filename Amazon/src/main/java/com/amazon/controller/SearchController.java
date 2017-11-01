@@ -14,7 +14,7 @@ import com.amazon.model.Movie;
 
 @RestController
 public class SearchController {
-	int pageSize = 10;
+	//int pageSize = 10;
 	private SearchDao searchDao;
 	
 	@Autowired
@@ -26,11 +26,11 @@ public class SearchController {
 	public List<Movie> getAllMovies(){
 		return searchDao.getAllMovies();
 	}
-	
-//	@RequestMapping(value = "/books/{page}", method = RequestMethod.GET)
-//	public List<Book> getAllBooks(@PathVariable(name="page")int page, String pattern){
-//		return searchDao.getAllBooks().subList((page -1)*pageSize, page*pageSize);
-//	}
+//	
+////	@RequestMapping(value = "/books/{page}", method = RequestMethod.GET)
+////	public List<Book> getAllBooks(@PathVariable(name="page")int page, String pattern){
+////		return searchDao.getAllBooks().subList((page -1)*pageSize, page*pageSize);
+////	}
 	
 	@RequestMapping(value = "/books/", method = RequestMethod.GET)
 	public List<Book> getAllBooks(){

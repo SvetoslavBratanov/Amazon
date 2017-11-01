@@ -58,10 +58,10 @@ public class LoginController {
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));	
 		} catch (InvalidInfoException e) {
-			return "index";
+			return "error";
 		}	
 		if (!this.userDAO.addUser(user)) {
-			return "index";
+			return "error";
 		}
 		return "index";
 	}
