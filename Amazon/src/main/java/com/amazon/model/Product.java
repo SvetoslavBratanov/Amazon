@@ -11,9 +11,11 @@ public class Product {
 	private double price;
 	private LocalDateTime date;
 	private int quantaty;
+	private int time_sold;
 	private int raiting;
-	private int category_id;
 	private String poster;
+	private int category_id;
+	
 	
 	public Product( String name, String description, double price, LocalDateTime date, int quantaty,
 			int raiting, int category_id, String poster) {
@@ -26,6 +28,18 @@ public class Product {
 		this.raiting = raiting;
 		this.category_id = category_id;
 		this.poster = poster;
+	}
+
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public int getTime_sold() {
+		return time_sold;
+	}
+
+	public void setTime_sold(int time_sold) {
+		this.time_sold = time_sold;
 	}
 
 	public int getProduct_id() {
