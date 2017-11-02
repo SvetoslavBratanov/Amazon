@@ -136,13 +136,25 @@ public class SearchDao {
 			e.printStackTrace();
 		}
 
-		String query = "SELECT * From amazon.products WHERE product_name LIKE '% " + string
-				+ "'\n OR description   LIKE '% " + string + "'\n;";
+		String query = "SELECT * From amazon.products WHERE product_name LIKE '%" + string
+				+ "%'\n OR description   LIKE '%" + string + "%'\n;";
 
 		try {
 			ResultSet res = st.executeQuery(query);
+			System.out.println("fscdnskdn");
+			int index = 0;
 			while (res.next()) {
+				String name = res.getString("product_name");
+				String description = res.getString("description");
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int category_id = res.getInt("categories_id");
+				int raiting = res.getInt("star_raiting");
+				String poster = res.getString("poster");
 
+
+				products.add(new Product(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id, poster));
+				System.out.println(products.get(index++));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -2,6 +2,8 @@ package com.amazon.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import com.amazon.dao.SearchDao;
 import com.amazon.model.Book;
 import com.amazon.model.Computer;
 import com.amazon.model.Movie;
+import com.amazon.model.Product;
 
 @Controller
 public class SearchController {
@@ -57,5 +60,15 @@ public class SearchController {
 		model.addAttribute("movies", movies);
 		return "movies";
 	}
-
+	
+	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	public String getAllProducts(Model model, HttpServletRequest request) {
+		String s = request.getParameter("input");
+		System.out.println(s);
+		List<Product> products = searchDao.getProductByName(s);
+		System.out.println(products.get(0));
+		//System.err.println(movies.get(0).getPoster());
+		model.addAttribute("products", products);
+		return "products";
+	}
 }
