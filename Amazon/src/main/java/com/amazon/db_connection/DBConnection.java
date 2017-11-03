@@ -1,7 +1,4 @@
 package com.amazon.db_connection;
-
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 
