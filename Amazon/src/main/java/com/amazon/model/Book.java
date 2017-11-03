@@ -1,6 +1,9 @@
 package com.amazon.model;
 
 import java.sql.Date;
+import java.util.regex.Pattern;
+
+import com.amazon.exception.InvalidInfoException;
 
 public class Book extends Product{
 
@@ -9,11 +12,11 @@ public class Book extends Product{
 	private String genre;
 	
 	public Book(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID,
-			String poster, int bookID, String authorName, String genre) {
+			String poster, int bookID, String authorName, String genre) throws InvalidInfoException {
 		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
 		this.bookID = bookID;
-		this.authorName = authorName;
-		this.genre = genre;
+		this.setAuthorName(authorName);
+		this.setGenre(genre);
 	}
 
 	public int getBookID() {
@@ -28,8 +31,12 @@ public class Book extends Product{
 		return authorName;
 	}
 
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
+	public void setAuthorName(String authorName) throws InvalidInfoException {
+		if(validateSring(authorName)) {
+			this.authorName = authorName;
+		} else {
+			throw new InvalidInfoException("Invalid genre");
+		}
 	}
 
 	public String getGenre() {
@@ -38,6 +45,12 @@ public class Book extends Product{
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+	
+
+	public static boolean isValidAuthor(String name) {
+		Pattern pattern = Pattern.compile("[A-Za-z ]+"); 
+		return (name != null) && pattern.matcher(name).matches() && name.length() > 3;
 	}
 	
 	

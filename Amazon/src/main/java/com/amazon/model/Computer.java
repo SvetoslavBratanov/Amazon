@@ -1,6 +1,9 @@
 package com.amazon.model;
 
 import java.sql.Date;
+import java.util.regex.Pattern;
+
+import com.amazon.exception.InvalidInfoException;
 
 public class Computer extends Product{
 	private int computersID;
@@ -12,7 +15,7 @@ public class Computer extends Product{
 	
 	public Computer(String productName, String description, double price, Date publishDate, int quantaty,
 			int categoriesID, String poster, String operationSystem, int ssd, int ram, String processor,
-			int category_id) {
+			int category_id) throws InvalidInfoException {
 		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
 		this.operationSystem = operationSystem;
 		this.ssd = ssd;
@@ -33,31 +36,50 @@ public class Computer extends Product{
 		return operationSystem;
 	}
 
-	public void setOperationSystem(String operationSystem) {
-		this.operationSystem = operationSystem;
+	public void setOperationSystem(String operationSystem) throws InvalidInfoException {
+		if(isValidString(operationSystem)) {
+			this.operationSystem = operationSystem;
+		} else {
+			throw new InvalidInfoException("invalid operation system");
+		}
 	}
 
 	public int getSsd() {
 		return ssd;
 	}
 
-	public void setSsd(int ssd) {
-		this.ssd = ssd;
+	public void setSsd(int ssd) throws InvalidInfoException {
+		if(ssd > 0) {
+			this.ssd = ssd;
+		} else {
+
+			throw new InvalidInfoException("invalid ssd");
+		}
 	}
 
 	public int getRam() {
 		return ram;
 	}
 
-	public void setRam(int ram) {
-		this.ram = ram;
+	public void setRam(int ram) throws InvalidInfoException {
+		if(ram > 0) {
+			this.ram = ram;
+		} else {
+
+			throw new InvalidInfoException("invalid ram");
+		}
 	}
 
 	public String getProcessor() {
 		return processor;
 	}
 
-	public void setProcessor(String processor) {
+	public void setProcessor(String processor) throws InvalidInfoException {
+		if(isValidString(processor)) {
+			this.processor = processor;
+		} else {
+			throw new InvalidInfoException("invalid processor");
+		}
 		this.processor = processor;
 	}
 
@@ -67,6 +89,11 @@ public class Computer extends Product{
 
 	public void setCategory_id(int category_id) {
 		this.category_id = category_id;
+	}
+	
+	public static boolean isValidString(String name) {
+		Pattern pattern = Pattern.compile("[A-Za-z0-9 ]+"); 
+		return (name != null) && pattern.matcher(name).matches() && name.length() > 3;
 	}
 	
 	

@@ -1,9 +1,10 @@
 package com.amazon.model;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.amazon.exception.ProductException;
+import com.amazon.exception.InvalidInfoException;
 
 
 public class Product {
@@ -21,26 +22,18 @@ public class Product {
 	
 
 
-	public Product(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID, String poster) {
+	public Product(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID, String poster) throws InvalidInfoException {
 		super();
-		this.productName = productName;
-		this.description = description;
-		this.price = price;
-		this.publishDate = publishDate;
-		this.quantaty = quantaty;
+		this.setProductName(productName); 
+		this.setDescription(description);
+		this.setPrice(price);
+		this.setPublishDate(publishDate);
+		this.setQuantaty(quantaty);
 		this.timesSold = 0;
 		this.starRaiting = 0;
-		this.categoriesID = categoriesID;
-		this.poster = poster;
+		this.setCategoriesID(categoriesID);
+		this.setPoster(poster);
 	}
-
-
-
-	private static boolean validateString(String string) {
-		return (string != null);
-	}
-
-
 
 	public int getProductID() {
 		return productID;
@@ -60,8 +53,12 @@ public class Product {
 
 
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProductName(String productName) throws InvalidInfoException {
+		if(validateSring(productName)) {
+			this.productName = productName;
+		} else {
+			throw new InvalidInfoException("Invalid product name");
+		}
 	}
 
 
@@ -72,8 +69,12 @@ public class Product {
 
 
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String description) throws InvalidInfoException {
+		if(validateSring(description)) {
+			this.description = description;
+		} else {
+			throw new InvalidInfoException("Invalid product name");
+		}	
 	}
 
 
@@ -84,8 +85,12 @@ public class Product {
 
 
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrice(double price) throws InvalidInfoException {
+		if(this.price > 0) {
+			this.price = price;
+		} else {
+			throw new InvalidInfoException("Invalid price");
+		}	
 	}
 
 
@@ -108,8 +113,13 @@ public class Product {
 
 
 
-	public void setQuantaty(int quantaty) {
-		this.quantaty = quantaty;
+	public void setQuantaty(int quantaty) throws InvalidInfoException {
+		if(this.quantaty >= 0) {
+			this.quantaty = quantaty;
+		} else {
+			throw new InvalidInfoException("Invalid quantaty");
+
+		}
 	}
 
 
@@ -156,7 +166,20 @@ public class Product {
 
 
 
-	public void setPoster(String poster) {
-		this.poster = poster;
+	public void setPoster(String poster) throws InvalidInfoException {
+		if(poster.contains(".jpeg") || poster.contains(".png") || poster.endsWith(".")){
+			this.poster = poster;
+		} else {
+			throw new InvalidInfoException("Invalid image");
+		}
+	}
+	
+	public static boolean validateSring(String txt) {
+		//contains letters and special characters
+	    String regx = "\"[A-Za-z0-9_]+";
+	    Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
+	    Matcher matcher = pattern.matcher(txt);
+	    return matcher.find();
+
 	}
 }
