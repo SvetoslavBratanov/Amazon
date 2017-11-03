@@ -1,5 +1,6 @@
 package com.amazon.model;
 
+
 public class Address {
 	
 	private int id;

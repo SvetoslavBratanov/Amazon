@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,39 +16,48 @@ import com.amazon.model.Computer;
 import com.amazon.model.Movie;
 import com.amazon.model.Product;
 
+;
+
 @Service
 public class SearchDao {
 
 	public List<Movie> getAllMovies() {
 		List<Movie> movies = new ArrayList<>();
-		try (Connection connection = DBConnection.getInstance().getConnection()) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		try {
 			String query = "SELECT * FROM amazon.products p JOIN amazon.categories k ON (p.categories_id = k.id) WHERE category_name LIKE 'Pre-orders'";
-			
+
 			Statement st = connection.createStatement();
 			ResultSet res = st.executeQuery(query);
+
 			while (res.next()) {
 				String name = res.getString("product_name");
 				String description = res.getString("description");
-				//String language = res.getString("language");
+				// String language = res.getString("language");
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
 				int category_id = res.getInt("categories_id");
 				int raiting = res.getInt("star_raiting");
-				//int run_time_in_minutes = res.getInt("run_time_in_minutes");
-				//int genres_id = res.getInt("genres_id");
+				// int run_time_in_minutes = res.getInt("run_time_in_minutes");
+				// int genres_id = res.getInt("genres_id");
 				String poster = res.getString("poster");
-				// Timestamp date = res.getTimestamp("publish_date");
 				
-//				movies.add(new Movie(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
-//						genres_id, run_time_in_minutes, language, poster));
-				movies.add(new Movie(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,poster));
+				// Timestamp date = res.getTimestamp("publish_date");
+
+				// movies.add(new Movie(name, description, price, LocalDateTime.now(), quantaty,
+				// raiting, category_id,
+				// genres_id, run_time_in_minutes, language, poster));
+				movies.add(new Movie(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
+						poster));
 				System.err.println("dqvola napravi tozi metod");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		}
 		return movies;
+
 	}
 
 	public List<Book> getAllBooks() {
@@ -76,7 +84,8 @@ public class SearchDao {
 				int raiting = res.getInt("star_raiting");
 				String poster = res.getString("poster");
 
-				books.add(new Book(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id, poster));
+				books.add(new Book(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
+						poster));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,16 +114,17 @@ public class SearchDao {
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
 				int category_id = res.getInt("categories_id");
-				//int ram = res.getInt("RAM");
-				//int ssd = res.getInt("SSD");
-				//String operation_system = res.getString("operation_system");
+				// int ram = res.getInt("RAM");
+				// int ssd = res.getInt("SSD");
+				// String operation_system = res.getString("operation_system");
 				int raiting = res.getInt("star_raiting");
-				//String processor = res.getString("processor");
-				//Timestamp date = res.getTimestamp("publish_date");
+				// String processor = res.getString("processor");
+				// Timestamp date = res.getTimestamp("publish_date");
 				String poster = res.getString("poster");
 
-//				computers.add(new Computer(name, description, price, LocalDateTime.now(), quantaty, raiting,
-//						category_id, ram, ssd, processor, operation_system, poster));
+				// computers.add(new Computer(name, description, price, LocalDateTime.now(),
+				// quantaty, raiting,
+				// category_id, ram, ssd, processor, operation_system, poster));
 				computers.add(new Computer(name, description, price, LocalDateTime.now(), quantaty, raiting,
 						category_id, poster));
 				System.err.println("dqvola napravi tozi metod");
@@ -152,8 +162,8 @@ public class SearchDao {
 				int raiting = res.getInt("star_raiting");
 				String poster = res.getString("poster");
 
-
-				products.add(new Product(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id, poster));
+				products.add(new Product(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
+						poster));
 				System.out.println(products.get(index++));
 			}
 		} catch (SQLException e) {

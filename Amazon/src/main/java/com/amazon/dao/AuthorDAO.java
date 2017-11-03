@@ -12,6 +12,7 @@ import java.util.List;
 import com.amazon.exception.AuthorException;
 import com.amazon.model.Author;
 
+
 public class AuthorDAO extends AbstractDAO implements IAuthorDAO {
 	
 	private static final String ADD_AUTHOR_QUERY = "INSERT INTO authors values(null, ?, ?);";

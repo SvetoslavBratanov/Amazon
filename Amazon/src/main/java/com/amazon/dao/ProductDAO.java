@@ -7,10 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazon.exception.AuthorException;
-import com.amazon.exception.ProductException;
-import com.amazon.model.Book;
 import com.amazon.model.Product;
+
+
 
 public class ProductDAO extends AbstractDAO implements IProductDAO {
 

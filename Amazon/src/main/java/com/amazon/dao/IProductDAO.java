@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.amazon.model.Product;
 
+
 public interface IProductDAO {
 	
 	List<Product> getAllProducts();

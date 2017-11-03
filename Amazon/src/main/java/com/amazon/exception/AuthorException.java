@@ -1,5 +1,6 @@
 package com.amazon.exception;
 
+
 public class AuthorException extends Exception {
 
 	/**

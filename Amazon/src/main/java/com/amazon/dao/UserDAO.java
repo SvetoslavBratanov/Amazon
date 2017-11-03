@@ -6,17 +6,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-
-import javax.mail.PasswordAuthentication;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+//import javax.mail.Message;
+//import javax.mail.MessagingException;
+//import javax.mail.Session;
+//
+//import javax.mail.PasswordAuthentication;
+//import javax.mail.Transport;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
 import org.springframework.stereotype.Service;
 
 import com.amazon.model.User;
+
+
 
 @Service
 public class UserDAO extends AbstractDAO implements IUserDAO{
@@ -49,7 +51,7 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
-			sendEmail(user.getEmail());
+			//sendEmail(user.getEmail());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -82,6 +84,7 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 	}
 
 	public boolean checkUser(User user) throws SQLException {
+		
 		String query = "SELECT email ,password FROM users WHERE email ='" + user.getEmail() + "' and password =MD5('"
 				+ user.getPassword() + "');";
 		ResultSet rs = null;
@@ -94,36 +97,36 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 			}
 		}
 	}
-
-	public void sendEmail(String email) {
-
-		final String username = "deniittalents@gmail.com";
-		final String password = "ittalents";
-
-		Properties props = new Properties();
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-
-		try {
-
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("deniittalents@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-			message.setSubject("Registration");
-			message.setText("Your registration was successfull!");
-
-			Transport.send(message);
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+//
+//	public void sendEmail(String email) {
+//
+//		final String username = "deniittalents@gmail.com";
+//		final String password = "ittalents";
+//
+//		Properties props = new Properties();
+//		props.put("mail.smtp.starttls.enable", "true");
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.host", "smtp.gmail.com");
+//		props.put("mail.smtp.port", "587");
+//
+//		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+//			protected PasswordAuthentication getPasswordAuthentication() {
+//				return new PasswordAuthentication(username, password);
+//			}
+//		});
+//
+//		try {
+//
+//			Message message = new MimeMessage(session);
+//			message.setFrom(new InternetAddress("deniittalents@gmail.com"));
+//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+//			message.setSubject("Registration");
+//			message.setText("Your registration was successfull!");
+//
+//			Transport.send(message);
+//
+//		} catch (MessagingException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 }

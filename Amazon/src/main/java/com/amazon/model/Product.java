@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.amazon.exception.ProductException;
 
+
 public class Product {
 	private int product_id;
 	private String name;

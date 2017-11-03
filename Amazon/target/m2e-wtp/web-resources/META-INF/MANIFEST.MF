@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: Amazon
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: deni
+Implementation-Vendor-Id: com.amazon
+Build-Jdk: 1.8.0_151
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

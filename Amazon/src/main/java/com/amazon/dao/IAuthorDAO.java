@@ -5,6 +5,8 @@ import java.util.List;
 import com.amazon.exception.AuthorException;
 import com.amazon.model.Author;
 
+
+
 public interface IAuthorDAO {
 
 	List<Author> getAllAuthors();

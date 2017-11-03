@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,7 +19,7 @@ import com.amazon.model.Product;
 
 @Controller
 public class SearchController {
-	// int pageSize = 10;
+	
 	private SearchDao searchDao;
 
 	@Autowired
@@ -39,7 +40,7 @@ public class SearchController {
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public String getAllBooks(Model model) {
-		List<Book> books =  searchDao.getAllBooks();
+		List<Book> books = searchDao.getAllBooks();
 		System.err.println(books.get(0).getPoster());
 		model.addAttribute("books", books);
 		return "books";
@@ -48,26 +49,25 @@ public class SearchController {
 	@RequestMapping(value = "/computers", method = RequestMethod.GET)
 	public String getAllComputers(Model model) {
 		List<Computer> computers = searchDao.getAllComputers();
-		//System.err.println(computers.get(0).getPoster());
+		// System.err.println(computers.get(0).getPoster());
 		model.addAttribute("computers", computers);
 		return "computers";
 	}
-	
+
 	@RequestMapping(value = "/movies", method = RequestMethod.GET)
-	public String getAllMovies(Model model) {
+	public String getAllMovies(ModelMap model) {
 		List<Movie> movies = searchDao.getAllMovies();
-		//System.err.println(movies.get(0).getPoster());
-		model.addAttribute("movies", movies);
+		model.put("movies", movies);
 		return "movies";
 	}
-	
+
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public String getAllProducts(Model model, HttpServletRequest request) {
 		String s = request.getParameter("input");
 		System.out.println(s);
 		List<Product> products = searchDao.getProductByName(s);
 		System.out.println(products.get(0));
-		//System.err.println(movies.get(0).getPoster());
+		// System.err.println(movies.get(0).getPoster());
 		model.addAttribute("products", products);
 		return "products";
 	}
