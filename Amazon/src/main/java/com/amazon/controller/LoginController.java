@@ -23,7 +23,7 @@ public class LoginController {
 		this.userDAO = userDAO;
 	}
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/login" }, method = RequestMethod.GET)
 	public String loginTemplate() {
 		return "login";
 	}
@@ -52,7 +52,6 @@ public class LoginController {
 			user.setEmail(request.getParameter("email"));
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));
-			//System.err.println("adasha shte nameri greshkata");
 		} catch (InvalidInfoException e) {
 			return "index";
 		}

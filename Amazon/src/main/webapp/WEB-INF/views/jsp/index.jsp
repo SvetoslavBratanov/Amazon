@@ -18,7 +18,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="<c:url value="/resources/static/css/popuo-box.css"/>" rel="stylesheet" type="text/css" media="all" />
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<%-- <link c:url value="/resources/static/css/jquery.countdown.css"/>" --%>
 <link c:url value="/resources/static/css/font-awesome.css"/>
 <script src="<c:url value="/resources/static/js/jquery.min.js"/>"></script>
 <script src="<c:url value="/resources/static/js/bootstrap-3.1.1.min.js"/>"></script>
@@ -34,7 +33,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<input class="search_box" type="checkbox" id="search_box">
 				<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
 				<div class="search_form">
-					<form action="/products" method="get">
+				<!-- 	<form action="/products" method="get"> -->
+					
 						<input type="text" name="input" placeholder="Search...">
 						<input type="submit" value="Send">
 					</form>
@@ -87,12 +87,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<h6><a href="movies">Movies</h6>
 										</ul>
 									</div>
+									
 									<div class="clearfix"></div>
 								</div>
 							</ul>
 						</li>
-				<li><a href="about.html">About Us</a></li>
-						<li><a href="mail.html">Mail Us</a></li>
 					</ul>
 				</div>
 			</nav>
