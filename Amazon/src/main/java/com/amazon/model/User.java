@@ -1,87 +1,60 @@
 package com.amazon.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.amazon.exception.InvalidInfoException;
 
 public class User {
-	private int id;
-	private String name;
-	private String password;
+	private int userID;
 	private String email;
-	private boolean isAdmin;
+	private String password;
+	private String name;
 	private String phoneNumber;
-	private Address address;
-	
+	private String address;
+	private boolean isAdmin;
+
 	public User() {
-		
+
 	}
 
-	public User(String name, String password, String email) throws InvalidInfoException {
-		this.id = 0;
-		this.setName(name);
-		this.setPassword(password);
-		this.setEmail(email);
+	public User(String email, String password, String name) throws InvalidInfoException {
+		super();
+		setEmail(email);
+		this.password = password;
+		this.name = name;
+		this.isAdmin = false;
 	}
 
-	
-
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public int getUserID() {
+		return userID;
 	}
 
-
-
-	public void setPhoneNumber(String phoneNumber) throws InvalidInfoException {
-		
-		if (validateString(phoneNumber)) {
-			this.phoneNumber = phoneNumber;
-		} else {
-			throw new InvalidInfoException();
-		}
-	}
-
-
-
-	public Address getAddress() {
-		return address;
-	}
-
-
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-
-
-	public int getId() {
-		return id;
-	}
-
-	public String getPassword() {
-		return password;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setPassword(String password) throws InvalidInfoException {
-		if (validateString(password)) {
-			this.password = password;
+	public void setEmail(String email) throws InvalidInfoException {
+		if (isValidEmailAddress(email)) {
+			this.email = email;
 		} else {
-			throw new InvalidInfoException();
+			throw new InvalidInfoException("Invalid email address");
 		}
 	}
 
-	public void setEmail(String email) throws InvalidInfoException {
-		if (validateString(email) ) {
-			this.email = email;
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) throws InvalidInfoException {
+		if(PasswordStrong(password) ) {
+			this.password = password;
 		} else {
-			throw new InvalidInfoException();
+			throw new InvalidInfoException("Invalid password");
 		}
 	}
 
@@ -89,31 +62,57 @@ public class User {
 		return name;
 	}
 
-
 	public void setName(String name) throws InvalidInfoException {
-		if (validateString(email)) {
+		if(isValidName(name)) {
 			this.name = name;
 		} else {
-			throw new InvalidInfoException();
+			throw new InvalidInfoException("Invalid name");
 		}
 	}
 
-
-	private static boolean validateString(String string) {
-		return (string != null) && (string.length() > 5);
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public boolean isAdmin() {
 		return isAdmin;
 	}
 
-
-
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 	
+	public static boolean isValidName(String name) {
+		Pattern pattern = Pattern.compile("[A-Za-z0-9_]+"); 
+		return (name != null) && pattern.matcher(name).matches();
+	}
+
+	public static boolean isValidEmailAddress(String email) {
+		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+		java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+		java.util.regex.Matcher m = p.matcher(email);
+		return m.matches();
+	}
+	
+	public static boolean PasswordStrong(String pass) {
+	    String expresion = "(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,16})$";
+	    Pattern patron = Pattern.compile(expresion);
+	    Matcher m = patron.matcher(pass);
+	    if (m.find())
+	        return true;
+	    return false;
+	}
 
 }

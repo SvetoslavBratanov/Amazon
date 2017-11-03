@@ -1,53 +1,59 @@
 package com.amazon.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.amazon.exception.InvalidInfoException;
 
 public class Order {
 	
-	private int id;
-	private String purchseNumber;
-	private LocalDate date;
+	private int orderID;
+	private LocalDateTime date;
+	private double amount;
 	private int userID;
 	
-	public Order(int id, String purchseNumber, LocalDate date, int userID) {
+	
+	public Order(LocalDateTime date, double amount, int userID) throws InvalidInfoException {
 		super();
-		this.id = id;
-		this.purchseNumber = purchseNumber;
 		this.date = date;
-		this.userID = userID;
+		setAmount(amount);
+		setUserID(userID);
 	}
-
-	public int getId() {
-		return id;
+	
+	public int getOrderID() {
+		return orderID;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
 	}
-
-	public String getPurchseNumber() {
-		return purchseNumber;
-	}
-
-	public void setPurchseNumber(String purchseNumber) {
-		this.purchseNumber = purchseNumber;
-	}
-
-	public LocalDate getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-
-	public void setDate(LocalDate date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) throws InvalidInfoException {
+		if(amount > 0) {
+			this.amount = amount;
+		} else {
+			throw new InvalidInfoException("Invalid amount of order!");
+		}
+	}
 	public int getUserID() {
 		return userID;
 	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserID(int userID) throws InvalidInfoException {
+		if(userID > 0) {
+			this.userID = userID;
+		} else {
+			throw new InvalidInfoException("Invalid userID in order!");
+		}
 	}
+	
+	
 	
 	
 }
