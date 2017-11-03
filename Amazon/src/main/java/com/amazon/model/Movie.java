@@ -1,39 +1,27 @@
 package com.amazon.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Movie extends Product{
-	private int genres_id;
-	private int run_time_int_minutes;
-	private String language; 
+	private int movieId;
+	private String language;
+	private int runTimeInMinutes;
 	
-	public Movie(String name, String description, double price, LocalDateTime date, int quantaty, int raiting,
-			int category_id, int genres_id, int run_time_in_minutes, String language, String poster) {
-		super(name, description, price, date, quantaty, raiting, category_id, poster);
-		this.genres_id = genres_id;
-		this.run_time_int_minutes = run_time_in_minutes;
+
+
+	public Movie(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID,
+			String poster, String language, int runTimeInMinutes) {
+		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
 		this.language = language;
+		this.runTimeInMinutes = runTimeInMinutes;
 	}
 
-	public Movie(String name, String description, double price, LocalDateTime now, int quantaty, int raiting,
-			int category_id, String poster) {
-		super(name, description, price, now, quantaty, raiting, category_id, poster);
+	public int getMovieId() {
+		return movieId;
 	}
 
-	public int getGenres_id() {
-		return genres_id;
-	}
-
-	public void setGenres_id(int genres_id) {
-		this.genres_id = genres_id;
-	}
-
-	public int getRun_time_int_minutes() {
-		return run_time_int_minutes;
-	}
-
-	public void setRun_time_int_minutes(int run_time_int_minutes) {
-		this.run_time_int_minutes = run_time_int_minutes;
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
 	}
 
 	public String getLanguage() {
@@ -43,7 +31,12 @@ public class Movie extends Product{
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	
-	
 
+	public int getRunTimeInMinutes() {
+		return runTimeInMinutes;
+	}
+
+	public void setRunTimeInMinutes(int runTimeInMinutes) {
+		this.runTimeInMinutes = runTimeInMinutes;
+	}
 }

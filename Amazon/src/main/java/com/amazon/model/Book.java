@@ -1,37 +1,44 @@
 package com.amazon.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Book extends Product{
 
-	private int genres_id;
-	private int authors_id;
+	private int bookID;
+	private String authorName;
+	private String genre;
 	
-	public Book(String name, String description, double price, LocalDateTime date, int quantaty, int raiting,
-			int category_id, int genres_id, int authors_id, String poster) {
-		super(name, description, price, date, quantaty, raiting, category_id, poster);
-		this.genres_id = genres_id;
-		this.authors_id = authors_id;
+	public Book(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID,
+			String poster, int bookID, String authorName, String genre) {
+		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
+		this.bookID = bookID;
+		this.authorName = authorName;
+		this.genre = genre;
 	}
 
-	public Book(String name, String description, double price, LocalDateTime date, int quantaty, int raiting, int category_id,  String poster) {
-		super(name, description, price, date, quantaty, raiting, category_id, poster);
-		
-	}
-	public int getGenres_id() {
-		return genres_id;
+	public int getBookID() {
+		return bookID;
 	}
 
-	public void setGenres_id(int genres_id) {
-		this.genres_id = genres_id;
+	public void setBookID(int bookID) {
+		this.bookID = bookID;
 	}
 
-	public int getAuthors_id() {
-		return authors_id;
+	public String getAuthorName() {
+		return authorName;
 	}
 
-	public void setAuthors_id(int authors_id) {
-		this.authors_id = authors_id;
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	
+	
 }

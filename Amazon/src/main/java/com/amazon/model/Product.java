@@ -7,124 +7,156 @@ import com.amazon.exception.ProductException;
 
 
 public class Product {
-	private int product_id;
-	private String name;
+	
+	private int productID;
+	private String productName;
 	private String description;
 	private double price;
-	private LocalDateTime date;
+	private Date publishDate;
 	private int quantaty;
-	private int raiting;
-	private int category_id;
+	private int timesSold;
+	private int starRaiting;
+	private int categoriesID;
 	private String poster;
 	
-	public Product( String name, String description, double price, LocalDateTime date, int quantaty,
-			int raiting, int category_id, String poster) {
+
+
+	public Product(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID, String poster) {
 		super();
-		this.name = name;
+		this.productName = productName;
 		this.description = description;
 		this.price = price;
-		this.date = date;
+		this.publishDate = publishDate;
 		this.quantaty = quantaty;
-		this.raiting = raiting;
-		this.category_id = category_id;
+		this.timesSold = 0;
+		this.starRaiting = 0;
+		this.categoriesID = categoriesID;
 		this.poster = poster;
 	}
 
-	public Product(int int1, String string, String string2, double double1, Date date2, int int2, int int3, int int4,
-			String string3, int int5) {
-		// TODO Auto-generated constructor stub
+
+
+	private static boolean validateString(String string) {
+		return (string != null);
 	}
 
-	public int getProduct_id() {
-		return product_id;
+
+
+	public int getProductID() {
+		return productID;
 	}
 
-	public void setProduct_id(int product_id) throws ProductException {
-		if(product_id > 0) {
-		this.product_id = product_id;
-		} else {
-			throw new ProductException("Invalid product_id");
-		}
+
+
+	public void setProductID(int productID) {
+		this.productID = productID;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setName(String name) throws ProductException {
-		if(validateString(name)) {
-			this.name = name;
-			} else {
-				throw new ProductException("Invalid name");
-			}
+
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
+
+
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) throws ProductException {
-		if(validateString(description)) {
-			this.description = description;
-			} else {
-				throw new ProductException("Invalid description");
-			}	
-		}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
 
 	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) throws ProductException {
-		if(price > 0) {
-			this.price = price;
-			} else {
-				throw new ProductException("Invalid price");
-			}		
-		}
 
-	public LocalDateTime getDate() {
-		return date;
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+
+
+	public Date getPublishDate() {
+		return publishDate;
 	}
+
+
+
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
+	}
+
+
 
 	public int getQuantaty() {
 		return quantaty;
 	}
 
+
+
 	public void setQuantaty(int quantaty) {
 		this.quantaty = quantaty;
 	}
 
-	public int getRaiting() {
-		return raiting;
+
+
+	public int getTimesSold() {
+		return timesSold;
 	}
 
-	public void setRaiting(int raiting) {
-		this.raiting = raiting;
+
+
+	public void setTimesSold(int timesSold) {
+		this.timesSold = timesSold;
 	}
 
-	public int getCategory_id() {
-		return category_id;
+
+
+	public int getStarRaiting() {
+		return starRaiting;
 	}
 
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+
+
+	public void setStarRaiting(int starRaiting) {
+		this.starRaiting = starRaiting;
 	}
+
+
+
+	public int getCategoriesID() {
+		return categoriesID;
+	}
+
+
+
+	public void setCategoriesID(int categoriesID) {
+		this.categoriesID = categoriesID;
+	}
+
+
 
 	public String getPoster() {
 		return poster;
 	}
 
+
+
 	public void setPoster(String poster) {
 		this.poster = poster;
-	}
-	
-
-	private static boolean validateString(String string) {
-		return (string != null);
 	}
 }
