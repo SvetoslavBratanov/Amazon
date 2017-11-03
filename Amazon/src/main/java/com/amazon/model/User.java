@@ -21,8 +21,8 @@ public class User {
 	public User(String email, String password, String name) throws InvalidInfoException {
 		super();
 		setEmail(email);
-		this.password = password;
-		this.name = name;
+		setPassword(password);
+		setName(name);
 		this.isAdmin = false;
 	}
 
