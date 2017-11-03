@@ -18,12 +18,12 @@ public class LoginController {
 
 	private UserDAO userDAO;
 
-	@Autowired
+	
 	public LoginController(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 
-	@RequestMapping(value = {"/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String loginTemplate() {
 		return "login";
 	}
@@ -31,11 +31,12 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpServletRequest request) throws InvalidInfoException {
 		User user = new User();
+		System.out.println("sdasfsadlkfmsdalkfcmsdlfcmdslfmdsdklfmcsmnfedfnsenfs");
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
 		model.addAttribute("error", "Invalid username or password!");
 
-		return this.userDAO.loginUser(user);
+		return null;
 	}
 
 	@RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
@@ -47,6 +48,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(HttpServletRequest request) {
+		System.out.println("asdfasdf");
 		User user = new User();
 		try {
 			user.setEmail(request.getParameter("email"));

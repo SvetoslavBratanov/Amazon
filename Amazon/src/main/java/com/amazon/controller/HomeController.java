@@ -14,12 +14,6 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping(value = {"test"}, method = RequestMethod.GET)
-	public ModelAndView testTemplate() {
-		ModelAndView modelAndView = new ModelAndView();
-		//modelAndView.setViewName("test");
-		return modelAndView;
-	}
 	
 	@RequestMapping(value = {"/mail"}, method = RequestMethod.GET)
 	public ModelAndView mailTemplate() {

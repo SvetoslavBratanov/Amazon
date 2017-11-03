@@ -39,15 +39,17 @@ public class SearchController {
 	//// }
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public String getAllBooks(ModelMap model) {
+	public String getAllBooks(Model model) {
 		List<Book> books = searchDao.getAllBooks();
-		model.put("books", books);
+		System.err.println(books.get(0).getPoster());
+		model.addAttribute("books", books);
 		return "books";
 	}
 
 	@RequestMapping(value = "/computers", method = RequestMethod.GET)
 	public String getAllComputers(Model model) {
 		List<Computer> computers = searchDao.getAllComputers();
+		// System.err.println(computers.get(0).getPoster());
 		model.addAttribute("computers", computers);
 		return "computers";
 	}
@@ -62,7 +64,10 @@ public class SearchController {
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public String getAllProducts(Model model, HttpServletRequest request) {
 		String s = request.getParameter("input");
+		System.out.println(s);
 		List<Product> products = searchDao.getProductByName(s);
+		System.out.println(products.get(0));
+		// System.err.println(movies.get(0).getPoster());
 		model.addAttribute("products", products);
 		return "products";
 	}
