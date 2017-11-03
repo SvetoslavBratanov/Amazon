@@ -1,16 +1,19 @@
 package com.amazon.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amazon.dao.UserDAO;
 import com.amazon.exception.InvalidInfoException;
+import com.amazon.exception.UserException;
 import com.amazon.model.User;
 
 @Controller
@@ -18,7 +21,7 @@ public class LoginController {
 
 	private UserDAO userDAO;
 
-	
+	@Autowired
 	public LoginController(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
@@ -29,22 +32,33 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model, HttpServletRequest request) throws InvalidInfoException {
+	public String login(HttpServletRequest request) throws InvalidInfoException {
 		User user = new User();
 		System.out.println("sdasfsadlkfmsdalkfcmsdlfcmdslfmdsdklfmcsmnfedfnsenfs");
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
-		model.addAttribute("error", "Invalid username or password!");
-
-		return null;
+		
+			try {
+				
+				if(userDAO.checkUser(user)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("user" , user);
+					return "/index";
+				}
+			} catch (SQLException e) {
+				request.setAttribute("errorMessage", "There is a problem with the database");
+				return "/error";
+			}
+		request.setAttribute("errorMessage", "You have not been registered");
+		return "/login";
 	}
 
-	@RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
-	public ModelAndView registrationTemplate() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("registration");
-		return modelAndView;
-	}
+//	@RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
+//	public ModelAndView registrationTemplate() {
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("registration");
+//		return modelAndView;
+//	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(HttpServletRequest request) {
@@ -55,11 +69,22 @@ public class LoginController {
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));
 		} catch (InvalidInfoException e) {
-			return "index";
+			request.setAttribute("errorMessage", e.getMessage());
+            return "/login";
 		}
-		if (!this.userDAO.addUser(user)) {
-			return "index";
+		
+		try {
+			this.userDAO.addUser(user);
+		} catch (UserException e) { 
+            request.setAttribute("errorMessage", e.getMessage());
+            return "/login";
+		} catch (SQLException e) {
+			 request.setAttribute("errorMessage", "There is a problem with the database");
+			return "/error";
 		}
-		return "index";
+		HttpSession session = request.getSession();
+		session.setAttribute("user" , user);
+		return "/index";
+	
 	}
 }
