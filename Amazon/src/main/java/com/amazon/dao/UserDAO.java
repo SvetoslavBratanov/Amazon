@@ -6,16 +6,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-//import javax.mail.Message;
-//import javax.mail.MessagingException;
-//import javax.mail.Session;
-//
-//import javax.mail.PasswordAuthentication;
-//import javax.mail.Transport;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.stereotype.Service;
 
+import com.amazon.exception.UserException;
 import com.amazon.model.User;
 
 
@@ -25,14 +26,15 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 
 	private static final String INSERT_USER_SQL = "INSERT INTO users(user_name, email, password, isAdmin) VALUES (?, ?, md5(?), ?);";
 	
-	public boolean addUser(User user) {
-
+	public boolean addUser(User user) throws UserException, SQLException {
+		boolean result = false;
 		try {
 			if (checkEmail(user.getEmail())) {
-				return false;
+				throw new UserException("This email is already used");
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 
 		
@@ -51,23 +53,24 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
-			//sendEmail(user.getEmail());
+			result = true;
+			sendEmail(user.getEmail());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		}
-		return true;
+		return result;
 	}
 
-	public String loginUser(User user) {
-		try {
-			if (checkUser(user)) {
-				return "redirect:/index";
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return "redirect:/login";
-	}
+//	public String loginUser(User user) throws SQLException {
+//		try {
+//			if (checkUser(user)) {
+//				return "redirect:/index";
+//			}
+//		} catch (SQLException e) {
+//			throw e;
+//		}
+//		return "redirect:/login";
+//	}
 
 	public boolean checkEmail(String email) throws SQLException {
 		String query = "SELECT email  FROM users WHERE email ='" + email + "'";
@@ -97,36 +100,36 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 			}
 		}
 	}
-//
-//	public void sendEmail(String email) {
-//
-//		final String username = "deniittalents@gmail.com";
-//		final String password = "ittalents";
-//
-//		Properties props = new Properties();
-//		props.put("mail.smtp.starttls.enable", "true");
-//		props.put("mail.smtp.auth", "true");
-//		props.put("mail.smtp.host", "smtp.gmail.com");
-//		props.put("mail.smtp.port", "587");
-//
-//		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-//			protected PasswordAuthentication getPasswordAuthentication() {
-//				return new PasswordAuthentication(username, password);
-//			}
-//		});
-//
-//		try {
-//
-//			Message message = new MimeMessage(session);
-//			message.setFrom(new InternetAddress("deniittalents@gmail.com"));
-//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-//			message.setSubject("Registration");
-//			message.setText("Your registration was successfull!");
-//
-//			Transport.send(message);
-//
-//		} catch (MessagingException e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
+
+	public void sendEmail(String email) {
+
+		final String username = "deniittalents@gmail.com";
+		final String password = "ittalents";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("deniittalents@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject("Registration");
+			message.setText("Your registration was successfull!");
+
+			Transport.send(message);
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
