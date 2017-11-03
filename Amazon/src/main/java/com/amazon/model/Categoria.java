@@ -2,21 +2,22 @@ package com.amazon.model;
 
 public class Categoria {
 	
-	private String name;
+	private int categoryID;
+	private String categoryName;
 	private Integer parentID;
 	
 	public Categoria(String name, Integer parentID) {
 		super();
-		this.name = name;
+		this.categoryName = name;
 		this.parentID = parentID;
 	}
 
 	public String getName() {
-		return name;
+		return categoryName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public Integer getParentID() {
