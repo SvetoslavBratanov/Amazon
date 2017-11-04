@@ -24,7 +24,7 @@ import com.amazon.model.User;
 @Service
 public class UserDAO extends AbstractDAO implements IUserDAO{
 
-	private static final String INSERT_USER_SQL = "INSERT INTO users(user_name, email, password, isAdmin) VALUES (?, ?, md5(?), ?);";
+	private static final String INSERT_USER_SQL = "INSERT INTO users(name, email, password, is_admin) VALUES (?, ?, md5(?), ?);";
 	
 	public boolean addUser(User user) throws UserException, SQLException {
 		boolean result = false;

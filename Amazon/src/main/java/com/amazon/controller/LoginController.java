@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.amazon.dao.UserDAO;
 import com.amazon.exception.InvalidInfoException;
@@ -66,10 +65,16 @@ public class LoginController {
 		User user = new User();
 		try {
 			user.setEmail(request.getParameter("email"));
+			System.out.println("Email" +request.getParameter("email"));
 			user.setName(request.getParameter("name"));
+			System.out.println("Name" +request.getParameter("name"));
+
 			user.setPassword(request.getParameter("password"));
+			System.out.println("Pass" +request.getParameter("password"));
+
 		} catch (InvalidInfoException e) {
 			request.setAttribute("errorMessage", e.getMessage());
+			System.err.println(e.getMessage());
             return "/login";
 		}
 		
@@ -79,6 +84,8 @@ public class LoginController {
             request.setAttribute("errorMessage", e.getMessage());
             return "/login";
 		} catch (SQLException e) {
+			System.out.println("ERRROORRRR");
+			e.printStackTrace();
 			 request.setAttribute("errorMessage", "There is a problem with the database");
 			return "/error";
 		}

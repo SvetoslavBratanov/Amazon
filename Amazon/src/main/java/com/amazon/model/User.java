@@ -21,7 +21,7 @@ public class User {
 	public User(String email, String password, String name) throws InvalidInfoException {
 		super();
 		setEmail(email);
-		setPassword(password);
+		this.password = password;
 		setName(name);
 		this.isAdmin = false;
 	}
@@ -51,11 +51,11 @@ public class User {
 	}
 
 	public void setPassword(String password) throws InvalidInfoException {
-		if(PasswordStrong(password) ) {
+		//if(PasswordStrong(password) ) {
 			this.password = password;
-		} else {
-			throw new InvalidInfoException("Invalid password");
-		}
+	//	} else {
+			//throw new InvalidInfoException("Invalid password");
+		//}
 	}
 
 	public String getName() {
