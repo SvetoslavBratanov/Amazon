@@ -132,4 +132,6 @@ public class UserDAO extends AbstractDAO implements IUserDAO{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
 }
