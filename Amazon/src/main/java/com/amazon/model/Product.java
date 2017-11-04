@@ -1,9 +1,6 @@
 package com.amazon.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.amazon.exception.InvalidInfoException;
 
@@ -15,7 +12,7 @@ public class Product {
 	private String description;
 	private double price;
 	private LocalDate publishDate;
-	private int quantaty;
+	private int quantity;
 	private int timesSold;
 	private int starRaiting;
 	private int categoriesID;
@@ -109,16 +106,16 @@ public class Product {
 
 
 	public int getQuantaty() {
-		return quantaty;
+		return quantity;
 	}
 
 
 
 	public void setQuantaty(int quantaty) throws InvalidInfoException {
 		if(quantaty >= 0) {
-			this.quantaty = quantaty;
+			this.quantity = quantaty;
 		} else {
-			throw new InvalidInfoException("Invalid quantaty");
+			throw new InvalidInfoException("Invalid quantity");
 
 		}
 	}
@@ -175,12 +172,8 @@ public class Product {
 		}
 	}
 	
-	public static boolean validateSring(String txt) {
-		//contains letters and special characters
-	    String regx = "\"[A-Za-z0-9_]+";
-	    Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
-	    Matcher matcher = pattern.matcher(txt);
-	    return matcher.find();
+	public static boolean validateSring(String string) {
+		return (string != null && string.length() > 3);
 
 	}
 }

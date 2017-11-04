@@ -49,10 +49,6 @@ public class Book extends Product{
 	}
 	
 
-	public static boolean isValidAuthor(String name) {
-		Pattern pattern = Pattern.compile("[A-Za-z ]+"); 
-		return (name != null) && pattern.matcher(name).matches() && name.length() > 3;
-	}
 	
 	
 }

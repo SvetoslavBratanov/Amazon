@@ -18,11 +18,11 @@ import com.amazon.model.Computer;
 import com.amazon.model.Movie;
 import com.amazon.model.Product;
 
-;
+
 
 @Service
 public class SearchDao extends AbstractDAO{
-
+	private static final String PREFIX_IMAGES= "/resources/static";
 	public List<Movie> getAllMovies() throws InvalidInfoException {
 		List<Movie> movies = new ArrayList<>();
 		try {
@@ -39,7 +39,7 @@ public class SearchDao extends AbstractDAO{
 				int quantaty = res.getInt("quantity");
 				int runTimeInMinutes = res.getInt("run_time_in_minutes");
 				int categoriesID = res.getInt("categories_id");
-				String poster = res.getString("poster");
+				String poster = PREFIX_IMAGES +  res.getString("poster");
 				movies.add(new Movie(productName, description, price, publishDate, quantaty, categoriesID, poster, language, runTimeInMinutes));
 				
 			}
@@ -74,7 +74,7 @@ public class SearchDao extends AbstractDAO{
 					double price = res.getDouble("price");
 					int quantaty = res.getInt("quantity");
 					int categoriesID = res.getInt("categories_id");
-					String poster = res.getString("poster");
+					String poster = PREFIX_IMAGES + res.getString("poster");
 					int bookID = res.getInt("book_id");
 					String authorName = res.getString("author_name");
 					String genre = res.getString("genre");
@@ -116,7 +116,7 @@ public class SearchDao extends AbstractDAO{
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
 				int categoriesID = res.getInt("categories_id");
-				String poster = res.getString("poster");
+				String poster =  PREFIX_IMAGES  + res.getString("poster");
 				int ssd = res.getInt("SSD");
 				int ram = res.getInt("ram");
 				String operationSystem = res.getString("operation_system");

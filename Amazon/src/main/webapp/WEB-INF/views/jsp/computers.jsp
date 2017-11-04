@@ -14,11 +14,11 @@
   	<c:if test="${not empty computers}">
   		<ul>
   			<c:forEach var="computer" items="${computers}">
-  				
-		<img src="<c:url value="${computer.poster}" />">
+ 				<img src="<c:url value="${computer.poster}"/>" height="420" width="420">
+		
 			<br>
 			<h1>
-			<c:out value="${computer.name}" />
+			<c:out value="${computer.productName}" />
 			</h1>
 			<br>
 			<p>
