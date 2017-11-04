@@ -23,8 +23,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="<c:url value="/resources/static/js/bootstrap-3.1.1.min.js"/>"></script>
 </head>
 <body>
-
+	<c:choose>
+    <c:when test="${user != null}">
+    <form method = "get" action = "/logout">
+		   <button>Logout</button>
+    </form>
+        <br />
+    </c:when>    
+    <c:otherwise>
 			 <a href="login"><img src="<c:url value="/resources/static/images/login.jpeg"/>" width="60" height="60"></a>
+        <br />
+    </c:otherwise>
+</c:choose>
 
 			<div class="w3l_logo">
 				<h1><a href="index.html">The best shop ever<span>Your stores. Your place.</span></a></h1>

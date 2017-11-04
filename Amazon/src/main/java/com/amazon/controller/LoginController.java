@@ -25,7 +25,7 @@ public class LoginController {
 		this.userDAO = userDAO;
 	}
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public String loginTemplate() {
 		return "login";
 	}
@@ -40,9 +40,11 @@ public class LoginController {
 			try {
 				
 				if(userDAO.checkUser(user)) {
-					HttpSession session = request.getSession();
-					session.setAttribute("user" , user);
-					return "/index";
+					HttpSession session = request.getSession(false);
+					
+					session.setAttribute("user" , user.getName());
+					session.setAttribute("logged", true);
+					return "redirect:/index";
 				}
 			} catch (SQLException e) {
 				request.setAttribute("errorMessage", "There is a problem with the database");
