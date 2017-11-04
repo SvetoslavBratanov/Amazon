@@ -134,41 +134,37 @@ public class SearchDao extends AbstractDAO{
 		return computers;
 	}
 
-//	public List<Product> getProductByName(String string) {
-//		List<Product> products = new ArrayList<>();
-//		Connection connection = DBConnection.getInstance().getConnection();
-//		Statement st = null;
-//		try {
-//			st = connection.createStatement();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		String query = "SELECT * From amazon.products WHERE product_name LIKE '%" + string
-//				+ "%'\n OR description   LIKE '%" + string + "%'\n;";
-//
-//		try {
-//			ResultSet res = st.executeQuery(query);
-//			System.out.println("fscdnskdn");
-//			int index = 0;
-//			while (res.next()) {
-//				String name = res.getString("product_name");
-//				String description = res.getString("description");
-//				double price = res.getDouble("price");
-//				int quantaty = res.getInt("quantity");
-//				int category_id = res.getInt("categories_id");
-//				int raiting = res.getInt("star_raiting");
-//				String poster = res.getString("poster");
-//
-//				products.add(new Product(name, description, price, LocalDateTime.now(), quantaty, raiting, category_id,
-//						poster));
-//				System.out.println(products.get(index++));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return products;
-//	}
+	public List<Product> getProductByName(String string) {
+		List<Product> products = new ArrayList<>();
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement st = null;
+		try {
+			st = connection.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String query = "SELECT * From amazing.products WHERE product_name LIKE '%" + string
+				+ "%'\n OR description  LIKE '%" + string + "%'\n;";
+
+		try {
+			ResultSet res = st.executeQuery(query);
+			while (res.next()) {
+				String productName = res.getString("product_name");
+				String description = res.getString("description");
+				LocalDate publishDate = res.getDate("publish_date").toLocalDate();
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int categoriesID = res.getInt("categories_id");
+				String poster =  PREFIX_IMAGES  + res.getString("poster");
+
+				products.add(new Product(productName, description, price, publishDate, quantaty, categoriesID, poster));
+			}
+		} catch (SQLException | InvalidInfoException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return products;
+	}
 
 }
