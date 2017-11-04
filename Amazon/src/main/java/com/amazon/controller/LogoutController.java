@@ -17,7 +17,7 @@ public class LogoutController {
 	public String logout(Model model, HttpServletRequest request,HttpServletResponse response) {
 		System.out.println("GET LOGOUT");
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         if (session != null) {
         	session.removeAttribute("user");
             session.invalidate();

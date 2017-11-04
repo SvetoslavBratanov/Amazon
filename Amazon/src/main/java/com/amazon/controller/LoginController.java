@@ -33,17 +33,15 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request) throws InvalidInfoException {
 		User user = new User();
-		System.out.println("sdasfsadlkfmsdalkfcmsdlfcmdslfmdsdklfmcsmnfedfnsenfs");
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
 		
 			try {
 				
 				if(userDAO.checkUser(user)) {
-					HttpSession session = request.getSession(false);
-					
-					session.setAttribute("user" , user.getName());
-					session.setAttribute("logged", true);
+
+					HttpSession session = request.getSession();
+					session.setAttribute("user" , user);
 					return "redirect:/index";
 				}
 			} catch (SQLException e) {
