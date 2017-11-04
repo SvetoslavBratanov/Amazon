@@ -87,7 +87,7 @@ public class Product {
 
 
 	public void setPrice(double price) throws InvalidInfoException {
-		if(this.price > 0) {
+		if(price > 0) {
 			this.price = price;
 		} else {
 			throw new InvalidInfoException("Invalid price");
@@ -115,7 +115,7 @@ public class Product {
 
 
 	public void setQuantaty(int quantaty) throws InvalidInfoException {
-		if(this.quantaty >= 0) {
+		if(quantaty >= 0) {
 			this.quantaty = quantaty;
 		} else {
 			throw new InvalidInfoException("Invalid quantaty");
@@ -168,7 +168,7 @@ public class Product {
 
 
 	public void setPoster(String poster) throws InvalidInfoException {
-		if(poster.contains(".jpeg") || poster.contains(".png") || poster.endsWith(".")){
+		if(poster.contains(".jpeg") || poster.contains(".png") || poster.contains(".jpg")){
 			this.poster = poster;
 		} else {
 			throw new InvalidInfoException("Invalid image");

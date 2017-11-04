@@ -46,7 +46,7 @@ public class Movie extends Product{
 	}
 
 	public void setRunTimeInMinutes(int runTimeInMinutes) throws InvalidInfoException {
-		if(this.runTimeInMinutes > MAX_MOVIE_LENGHT) {
+		if(runTimeInMinutes > MAX_MOVIE_LENGHT) {
 			this.runTimeInMinutes = runTimeInMinutes;
 		} else {
 			throw new InvalidInfoException("invalid movie lenght");
