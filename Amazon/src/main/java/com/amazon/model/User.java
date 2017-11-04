@@ -21,7 +21,7 @@ public class User {
 	public User(String email, String password, String name) throws InvalidInfoException {
 		super();
 		setEmail(email);
-		this.password = password;
+		setPassword(password);
 		setName(name);
 		this.isAdmin = false;
 	}
@@ -51,11 +51,11 @@ public class User {
 	}
 
 	public void setPassword(String password) throws InvalidInfoException {
-		//if(PasswordStrong(password) ) {
+		if(isValidPassword(password) ) {
 			this.password = password;
-	//	} else {
-			//throw new InvalidInfoException("Invalid password");
-		//}
+		} else {
+			throw new InvalidInfoException("Invalid password");
+		}
 	}
 
 	public String getName() {
@@ -106,13 +106,17 @@ public class User {
 		return m.matches();
 	}
 	
-	public static boolean PasswordStrong(String pass) {
-	    String expresion = "(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,16})$";
-	    Pattern patron = Pattern.compile(expresion);
-	    Matcher m = patron.matcher(pass);
-	    if (m.find())
-	        return true;
-	    return false;
+	public static boolean isValidPassword(String password) {
+		Pattern letter = Pattern.compile("[a-zA-z]");
+		Pattern digit = Pattern.compile("[0-9]");
+		Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+		Pattern countOfLetters = Pattern.compile(".{6,15}");
+		
+		Matcher hasLetter = letter.matcher(password);
+		Matcher hasDigit = digit.matcher(password);
+		Matcher hasSpecial = special.matcher(password);
+		Matcher range = countOfLetters.matcher(password);
+		return (hasLetter.find() || hasDigit.find() || hasSpecial.find()) && range.matches();
 	}
 
 }
