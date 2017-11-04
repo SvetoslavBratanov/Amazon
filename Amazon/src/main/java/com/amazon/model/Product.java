@@ -1,6 +1,7 @@
 package com.amazon.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +14,7 @@ public class Product {
 	private String productName;
 	private String description;
 	private double price;
-	private Date publishDate;
+	private LocalDate publishDate;
 	private int quantaty;
 	private int timesSold;
 	private int starRaiting;
@@ -22,7 +23,7 @@ public class Product {
 	
 
 
-	public Product(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID, String poster) throws InvalidInfoException {
+	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID, String poster) throws InvalidInfoException {
 		super();
 		this.setProductName(productName); 
 		this.setDescription(description);
@@ -95,13 +96,13 @@ public class Product {
 
 
 
-	public Date getPublishDate() {
+	public LocalDate getPublishDate() {
 		return publishDate;
 	}
 
 
 
-	public void setPublishDate(Date publishDate) {
+	public void setPublishDate(LocalDate publishDate) {
 		this.publishDate = publishDate;
 	}
 

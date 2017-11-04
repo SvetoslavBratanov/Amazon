@@ -1,6 +1,7 @@
 package com.amazon.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import com.amazon.exception.InvalidInfoException;
@@ -11,7 +12,7 @@ public class Book extends Product{
 	private String authorName;
 	private String genre;
 	
-	public Book(String productName, String description, double price, Date publishDate, int quantaty, int categoriesID,
+	public Book(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID,
 			String poster, int bookID, String authorName, String genre) throws InvalidInfoException {
 		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
 		this.bookID = bookID;

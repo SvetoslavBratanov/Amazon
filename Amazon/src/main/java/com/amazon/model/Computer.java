@@ -1,6 +1,7 @@
 package com.amazon.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import com.amazon.exception.InvalidInfoException;
@@ -11,17 +12,14 @@ public class Computer extends Product{
 	private int ssd;
 	private int ram;
 	private String processor;
-	private int category_id;
 	
-	public Computer(String productName, String description, double price, Date publishDate, int quantaty,
-			int categoriesID, String poster, String operationSystem, int ssd, int ram, String processor,
-			int category_id) throws InvalidInfoException {
+	public Computer(String productName, String description, double price, LocalDate publishDate, int quantaty,
+			int categoriesID, String poster, String operationSystem, int ssd, int ram, String processor) throws InvalidInfoException {
 		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
 		this.operationSystem = operationSystem;
 		this.ssd = ssd;
 		this.ram = ram;
 		this.processor = processor;
-		this.category_id = category_id;
 	}
 
 	public int getComputersID() {
@@ -81,14 +79,6 @@ public class Computer extends Product{
 			throw new InvalidInfoException("invalid processor");
 		}
 		this.processor = processor;
-	}
-
-	public int getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
 	}
 	
 	public static boolean isValidString(String name) {
