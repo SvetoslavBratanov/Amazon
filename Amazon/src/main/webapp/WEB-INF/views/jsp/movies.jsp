@@ -14,10 +14,11 @@
   		<ul>
   			<c:forEach var="movie" items="${movies}">
   				
-		<img src="<c:url value="${movie.poster}" />">
+		<img src="<c:url value="${movie.poster}"/>" height="420" width="420">
 			<br>
 			<h1>
-			<c:out value="${movie.name}" />
+			<c:out value="${movie.productName}" />
+			
 			</h1>
 			<br>
 			<p>
