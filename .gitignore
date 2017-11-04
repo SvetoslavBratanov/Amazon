@@ -27,3 +27,4 @@ RemoteSystemsTempFiles
 Servers
 /.recommenders/
 Amazon/target
+Amazon/target/m2e-wtp/web-resources/META-INF/maven/Amazon/Amazon/pom.properties
