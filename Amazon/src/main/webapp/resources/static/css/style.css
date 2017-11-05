@@ -489,13 +489,10 @@ li.w3pages .dropdown-menu > li > a:hover{
 	background:url(../images/background.jpg) no-repeat center 0px; 
 	background-size:cover;
 	-webkit-background-size:cover;
-	-moz-background-size:cover;
-	-o-background-size:cover;
-	-ms-background-size:cover;
-	min-height:700px;
+	
 } 
 .banner.banner10{
-	min-height:300px;
+	min-height:600px;
 }
 .banner.banner1,.banner.banner2,.banner.banner3{
 	min-height:400px;
@@ -3111,7 +3108,7 @@ td.invert-image a img {
 		margin-left: 13em;
 	} 
 	.banner.banner10 {
-		min-height: 255px;
+		min-height: 700px;
 	}
 	.banner1 h2,.banner2 h2,.banner3 h2,.banner10 h2 { 
 		padding: 2em 0 0; 
@@ -3460,7 +3457,7 @@ td.invert-image a img {
 		font-size: 2.5em;
 	}
 	.banner.banner10 {
-		min-height: 225px;
+		min-height: 1000px;
 	}
 	.imagezoom-view {
 		display: none;
@@ -3621,7 +3618,7 @@ td.invert-image a img {
 		margin-bottom: 0.5em;
 	}
 	.banner.banner10 {
-		min-height: 210px;
+		min-height: 1000px;
 	}
 	.w3agile_special_deals_grid_right_pos {
 		left: 23%;
