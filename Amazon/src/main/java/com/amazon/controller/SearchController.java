@@ -1,5 +1,6 @@
 package com.amazon.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,7 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/movielist", method = RequestMethod.GET)
-	public List<Movie> getAllMovies() {
+	public List<Movie> getAllMovies() throws SQLException {
 		try {
 			return searchDao.getAllMovies();
 		} catch (InvalidInfoException e) {
@@ -46,7 +47,7 @@ public class SearchController {
 	//// }
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public String getAllBooks(Model model) {
+	public String getAllBooks(Model model) throws InvalidInfoException, SQLException {
 		List<Book> books = searchDao.getAllBooks();
 		model.addAttribute("products", books);
 		return "products";
@@ -60,7 +61,7 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/movies", method = RequestMethod.GET)
-	public String getAllMovies(ModelMap model) {
+	public String getAllMovies(ModelMap model) throws SQLException {
 		List<Movie> movies = null;
 		try {
 			movies = searchDao.getAllMovies();

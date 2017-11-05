@@ -20,23 +20,25 @@ public class Product {
 	
 
 
-	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID, String poster) throws InvalidInfoException {
+	public Product(int productID, String productName, String description, double price, LocalDate publishDate, int quantaty, int timesSold, int starRaiting, int categoriesID, String poster) throws InvalidInfoException {
 		super();
+		this.setProductID(productID);
 		this.setProductName(productName); 
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setPublishDate(publishDate);
 		this.setQuantaty(quantaty);
-		this.timesSold = 0;
-		this.starRaiting = 0;
+		this.setTimesSold(timesSold);
+		this.setStarRaiting(starRaiting);
 		this.setCategoriesID(categoriesID);
 		this.setPoster(poster);
 	}
+	
+	
 
 	public int getProductID() {
 		return productID;
 	}
-
 
 
 	public void setProductID(int productID) {

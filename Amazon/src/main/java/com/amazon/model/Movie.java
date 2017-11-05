@@ -13,16 +13,17 @@ public class Movie extends Product{
 	private int runTimeInMinutes;
 	
 
-
-	public Movie(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID,
-			String poster, String language, int runTimeInMinutes) throws InvalidInfoException {
-		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
-		this.setLanguage(language);
-		this.setRunTimeInMinutes(runTimeInMinutes);
-	}
-
 	public int getMovieId() {
 		return movieId;
+	}
+
+	public Movie(int productID, String productName, String description, double price, LocalDate
+			publishDate, int quantaty, int timesSold, int starRaiting, int categoriesID, 
+			String poster, String language, int runTimeInMinutes) throws InvalidInfoException {
+		super(productID, productName, description, price, publishDate, quantaty, timesSold, starRaiting, categoriesID, poster);
+		this.movieId = this.getProductID();
+		this.setLanguage(language);
+		this.setRunTimeInMinutes(runTimeInMinutes);
 	}
 
 	public void setMovieId(int movieId) {

@@ -11,17 +11,18 @@ public class Book extends Product{
 	private int bookID;
 	private String authorName;
 	private String genre;
-	
-	public Book(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID,
-			String poster, int bookID, String authorName, String genre) throws InvalidInfoException {
-		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
-		this.bookID = bookID;
-		this.setAuthorName(authorName);
-		this.setGenre(genre);
-	}
 
 	public int getBookID() {
 		return bookID;
+	}
+
+	public Book(int productID, String productName, String description, double price, LocalDate publishDate, int quantaty,
+			int timesSold, int starRaiting, int categoriesID, String poster,
+			String authorName, String genre) throws InvalidInfoException {
+		super(productID, productName, description, price, publishDate, quantaty, timesSold, starRaiting, categoriesID, poster);
+		this.bookID = this.getProductID();
+		this.setAuthorName(authorName);
+		this.setGenre(genre);
 	}
 
 	public void setBookID(int bookID) {
