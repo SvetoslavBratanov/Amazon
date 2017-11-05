@@ -166,5 +166,41 @@ public class SearchDao extends AbstractDAO{
 
 		return products;
 	}
+	
+	public List<Product> getProductByPrice(double from, double to) {
+		System.out.println("leleeeee");
+
+		List<Product> products = new ArrayList<>();
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement st = null;
+		try {
+			st = connection.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String query = " SELECT * From amazing.products WHERE products.price BETWEEN " + from + "and "+to;
+
+		System.out.println("leleeeee");
+		try {
+			ResultSet res = st.executeQuery(query);
+			while (res.next()) {
+				String productName = res.getString("product_name");
+				String description = res.getString("description");
+				LocalDate publishDate = res.getDate("publish_date").toLocalDate();
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int categoriesID = res.getInt("categories_id");
+				String poster =  PREFIX_IMAGES  + res.getString("poster");
+
+				products.add(new Product(productName, description, price, publishDate, quantaty, categoriesID, poster));
+			}
+		} catch (SQLException | InvalidInfoException e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(products);
+		
+		return products;
+	}
 
 }

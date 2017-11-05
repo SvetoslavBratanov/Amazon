@@ -48,15 +48,15 @@ public class SearchController {
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public String getAllBooks(Model model) {
 		List<Book> books = searchDao.getAllBooks();
-		model.addAttribute("books", books);
-		return "books";
+		model.addAttribute("products", books);
+		return "products";
 	}
 
 	@RequestMapping(value = "/computers", method = RequestMethod.GET)
 	public String getAllComputers(Model model) {
 		List<Computer> computers = searchDao.getAllComputers();
-		model.addAttribute("computers", computers);
-		return "computers";
+		model.addAttribute("products", computers);
+		return "products";
 	}
 
 	@RequestMapping(value = "/movies", method = RequestMethod.GET)
@@ -67,8 +67,8 @@ public class SearchController {
 		} catch (InvalidInfoException e) {
 			e.printStackTrace();
 		}
-		model.put("movies", movies);
-		return "movies";
+		model.put("products", movies);
+		return "products";
 	}
 
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
@@ -76,6 +76,26 @@ public class SearchController {
 		String s = request.getParameter("input");
 		List<Product> products = searchDao.getProductByName(s);
 		model.addAttribute("products", products);
+		return "products";
+	}
+	
+	@RequestMapping(value = "/productsByPrice", method = RequestMethod.GET)
+	public String getProductByPrice(Model model, HttpServletRequest request) {
+		double from = 0;
+		double to = 0;
+		List<Product> products = null;
+
+		if(request.getParameter("from") != null|| request.getParameter("to") != null) {
+			from = Double.parseDouble((String) request.getParameter("from"));
+			to = Double.parseDouble((String) request.getParameter("to"));
+			products = searchDao.getProductByPrice(from, to);
+			model.addAttribute("products", products);
+		} else {
+			model.addAttribute("errorMessage","Invalid input!");
+		}
+		if(products == null) {
+			model.addAttribute("errorMessage","There are no such products!");
+		}
 		return "products";
 	}
 

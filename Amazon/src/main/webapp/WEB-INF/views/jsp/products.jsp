@@ -7,10 +7,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Products</title>
+<link href= "<c:url value="/resources/static/css/products.css"/>" rel="stylesheet" type="text/css" media="all" />
+
 </head>
 <body>
-	
+<form action="productsByPrice" method = get>
+<table style="width:20%"  style="width:30%">
+  <tr>
+    <th>from</th> 
+    <th>to</th>
+  </tr>
+  <tr>
+    <td>Price</td>
+    <td><input type="text" name="from" ></td>
+    <td><input type="text" name="to" ></td>
+		<input type="submit" value="Send">
+    
+  </tr>
+</table>
+<c:if test="${not empty errorMessage}">
+			<h1>
 
+<c:out value="${errorMessage}"  />
+			</h1>
+
+</c:if>
+</form>
   	<c:if test="${not empty products}">
   		<ul>
   			<c:forEach var="product" items="${products}">
@@ -25,6 +47,6 @@
   			</c:forEach>
   		</ul>	
 
-  	</c:if>
+  	</c:if> 
 </body>
 </html>
