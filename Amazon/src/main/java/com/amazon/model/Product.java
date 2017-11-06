@@ -18,7 +18,9 @@ public class Product {
 	private int categoriesID;
 	private String poster;
 	
-
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Product(int productID, String productName, String description, double price, LocalDate publishDate, int quantaty, int timesSold, int starRaiting, int categoriesID, String poster) throws InvalidInfoException {
 		super();
@@ -34,7 +36,16 @@ public class Product {
 		this.setPoster(poster);
 	}
 	
+	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty,int categoriesID) {
+		this.productName = productName;
+		this.description = description;
+		this.price = price;
+		this.publishDate = publishDate;
+		this.quantity = quantaty;
+		this.categoriesID = categoriesID;
+	}
 	
+
 
 	public int getProductID() {
 		return productID;
@@ -164,7 +175,13 @@ public class Product {
 		return poster;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Product [productID=" + productID + ", productName=" + productName + ", description=" + description
+				+ ", price=" + price + ", publishDate=" + publishDate + ", quantity=" + quantity + ", timesSold="
+				+ timesSold + ", starRaiting=" + starRaiting + ", categoriesID=" + categoriesID + ", poster=" + poster
+				+ "]";
+	}
 
 	public void setPoster(String poster) throws InvalidInfoException {
 		if(poster.contains(".jpeg") || poster.contains(".png") || poster.contains(".jpg")){
