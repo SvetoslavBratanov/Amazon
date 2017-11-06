@@ -1,6 +1,5 @@
 package com.amazon.dao;
 
-<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-=======
->>>>>>> c865323a182681d5ba9fed400480e32ca047f854
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -27,8 +24,9 @@ public class ProductDAO extends AbstractDAO implements IProductDAO {
 	private static final String INSERT_NEW_PRODUCT_QUERY = "INSERT INTO amazing.products"
 			+ "(product_name, description, price, publish_date, quantity, times_sold, star_raiting, poster, categories_id) "
 			+ "VALUES (?, ?, ?, ?, ?, 0, 0, ?, ?);";
-	private static final String GET_PRODUCT_BY_ID_QUERY = "SELECT * FROM amazing.products WHERE id = ?;";
+	private static final String GET_PRODUCT_BY_ID_QUERY = "SELECT * FROM amazing.products WHERE product_id = ?;";
 	private static final String SET_NEW_QUANTITY_OF_PRODUCTS = "UPDATE amazing.products SET quantity = quantity - ? where product_id = ? AND quantity > 0";
+	private static final String GET_MOVIE_BY_ID = "SELECT * FROM amazing.products JOIN amazing.movies WHERE product_id = ? AND movie_id = ?";
 	
 	@Override
 	public List<Product> getAllProducts() {
@@ -123,6 +121,25 @@ public class ProductDAO extends AbstractDAO implements IProductDAO {
 		}
 		
 		return product;
+	}
+	
+	public Movie getMovieById(int id) {
+		Movie movie = null;
+		try {
+			PreparedStatement ps = getConnection().prepareStatement(GET_MOVIE_BY_ID);
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int indexOfLanguage = rs.findColumn("language");
+			int indexOfRunTimeInMinutes = rs.findColumn("run_time_in_minutes");
+			movie = new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getDate(5).toLocalDate(), rs.getInt(6),
+					rs.getInt(7),rs.getInt(8),rs.getInt(10),rs.getString(9),rs.getString(indexOfLanguage), rs.getInt(indexOfRunTimeInMinutes));
+			
+		} catch (SQLException | InvalidInfoException e) {
+			e.printStackTrace();
+		}
+		return movie;
 	}
      
 	@Override

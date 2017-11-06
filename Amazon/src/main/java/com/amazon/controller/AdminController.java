@@ -43,10 +43,10 @@ public class AdminController {
 			product.setPrice(Double.parseDouble(req.getParameter("price")));
 			product.setPublishDate(LocalDate.now());
 			product.setQuantaty(Integer.parseInt(req.getParameter("quantity")));
-			
 			product.setPoster(req.getParameter("poster").toString());
 			product.setCategoriesID(Integer.parseInt(req.getParameter("categoryId")));
 			System.out.println(product);
+			
 			this.productDAO.addProduct(product);
 			
 		} catch (InvalidInfoException e) {
