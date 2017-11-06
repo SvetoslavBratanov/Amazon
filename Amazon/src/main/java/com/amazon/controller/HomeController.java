@@ -12,6 +12,11 @@ public class HomeController {
 	public String homeTemplate() {
 		return "index";
 	}
+	@RequestMapping(value = {"/cart"}, method = RequestMethod.GET)
+	public String cartTemplate() {
+		return "cart";
+	}
+	
 	
 
 	@RequestMapping(value = {"/home"}, method = RequestMethod.GET)

@@ -1,6 +1,5 @@
 package com.amazon.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
@@ -13,17 +12,16 @@ public class Movie extends Product{
 	private int runTimeInMinutes;
 	
 
-	public int getMovieId() {
-		return movieId;
-	}
 
-	public Movie(int productID, String productName, String description, double price, LocalDate
-			publishDate, int quantaty, int timesSold, int starRaiting, int categoriesID, 
+	public Movie(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID,
 			String poster, String language, int runTimeInMinutes) throws InvalidInfoException {
-		super(productID, productName, description, price, publishDate, quantaty, timesSold, starRaiting, categoriesID, poster);
-		this.movieId = this.getProductID();
+		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
 		this.setLanguage(language);
 		this.setRunTimeInMinutes(runTimeInMinutes);
+	}
+
+	public int getMovieId() {
+		return movieId;
 	}
 
 	public void setMovieId(int movieId) {

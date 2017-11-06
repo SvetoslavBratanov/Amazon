@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,152 +17,111 @@ import com.amazon.model.Computer;
 import com.amazon.model.Movie;
 import com.amazon.model.Product;
 
+
+
 @Service
-public class SearchDao extends AbstractDAO {
-
-	private static final String PREFIX_IMAGES = "/resources/static";
-	private static final String GET_ALL_BOOKS = "SELECT * FROM amazing.products p JOIN amazing.books k ON (p.product_id = book_id)";
-	private static final String GET_ALL_COMPUTERS = "SELECT * From amazing.products p JOIN amazing.computers k ON (p.product_id = k.computers_id)";
-	private static final String GET_ALL_MOVIES = "SELECT * FROM amazing.products p JOIN amazing.movies k ON (p.product_id = movie_id)";
-
-	public List<Movie> getAllMovies() throws InvalidInfoException, SQLException {
+public class SearchDao extends AbstractDAO{
+	private static final String PREFIX_IMAGES= "/resources/static";
+	public List<Movie> getAllMovies() throws InvalidInfoException {
 		List<Movie> movies = new ArrayList<>();
-		ResultSet res = null;
-		try (Statement st = this.getConnection().createStatement()) {
-
-			res = st.executeQuery(GET_ALL_MOVIES);
-
-			int indexProductID = res.findColumn("product_id");
-			int indexProductName = res.findColumn("product_name");
-			int indexDescription = res.findColumn("description");
-			int indexPrice = res.findColumn("price");
-			int indexPublishDate = res.findColumn("publish_date");
-			int indexQuantity = res.findColumn("quantity");
-			int indexTimesSold = res.findColumn("times_sold");
-			int indexStarRaiting = res.findColumn("star_raiting");
-			int indexPoster = res.findColumn("poster");
-			int indexCategoriesID = res.findColumn("categories_id");
+		try {
+			String query = "SELECT * FROM amazing.products p JOIN amazing.movies k ON (p.product_id = movie_id)";
+			Statement st = this.getConnection().createStatement();
+			ResultSet res = st.executeQuery(query);
 
 			while (res.next()) {
-
-				int productID = res.getInt(indexProductID);
-				String productName = res.getString(indexProductName);
-				String description = res.getString(indexDescription);
-				double price = res.getDouble(indexPrice);
-				LocalDate publishDate = res.getDate(indexPublishDate).toLocalDate();
-				int quantity = res.getInt(indexQuantity);
-				int timesSold = res.getInt(indexTimesSold);
-				int starRaiting = res.getInt(indexStarRaiting);
-				String poster = PREFIX_IMAGES + res.getString(indexPoster);
-				int categoriesID = res.getInt(indexCategoriesID);
-
+				String productName = res.getString("product_name");
+				String description = res.getString("description");
+				LocalDate publishDate = res.getDate("publish_date").toLocalDate();
 				String language = res.getString("language");
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
 				int runTimeInMinutes = res.getInt("run_time_in_minutes");
-
-				movies.add(new Movie(productID, productName, description, price, publishDate, quantity, timesSold,
-						starRaiting, categoriesID, poster, language, runTimeInMinutes));
+				int categoriesID = res.getInt("categories_id");
+				String poster = PREFIX_IMAGES +  res.getString("poster");
+				movies.add(new Movie(productName, description, price, publishDate, quantaty, categoriesID, poster, language, runTimeInMinutes));
+				
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				res.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
 		}
 		return movies;
+
 	}
 
-	public List<Book> getAllBooks() throws InvalidInfoException, SQLException {
+	public List<Book> getAllBooks() {
 		List<Book> books = new ArrayList<>();
-		ResultSet res = null;
-		try (Statement st = this.getConnection().createStatement()) {
+		Statement st = null;
+		try {
+			 st = this.getConnection().createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			res = st.executeQuery(GET_ALL_BOOKS);
-			int indexProductID = res.findColumn("product_id");
-			int indexProductName = res.findColumn("product_name");
-			int indexDescription = res.findColumn("description");
-			int indexPrice = res.findColumn("price");
-			int indexPublishDate = res.findColumn("publish_date");
-			int indexQuantity = res.findColumn("quantity");
-			int indexTimesSold = res.findColumn("times_sold");
-			int indexStarRaiting = res.findColumn("star_raiting");
-			int indexPoster = res.findColumn("poster");
-			int indexCategoriesID = res.findColumn("categories_id");
-
+		String query = "SELECT * FROM amazing.products p JOIN amazing.books k ON (p.product_id = book_id)";
+		try {
+			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
 
-				int productID = res.getInt(indexProductID);
-				String productName = res.getString(indexProductName);
-				String description = res.getString(indexDescription);
-				double price = res.getDouble(indexPrice);
-				LocalDate publishDate = res.getDate(indexPublishDate).toLocalDate();
-				int quantity = res.getInt(indexQuantity);
-				int timesSold = res.getInt(indexTimesSold);
-				int starRaiting = res.getInt(indexStarRaiting);
-				String poster = PREFIX_IMAGES + res.getString(indexPoster);
-				int categoriesID = res.getInt(indexCategoriesID);
+				while (res.next()) {
+					String productName = res.getString("product_name");
+					String description = res.getString("description");
+					LocalDate publishDate = res.getDate("publish_date").toLocalDate();
+					double price = res.getDouble("price");
+					int quantaty = res.getInt("quantity");
+					int categoriesID = res.getInt("categories_id");
+					String poster = PREFIX_IMAGES + res.getString("poster");
+					int bookID = res.getInt("book_id");
+					String authorName = res.getString("author_name");
+					String genre = res.getString("genre");
+							
 
-				String authorName = res.getString("author_name");
-				String genre = res.getString("genre");
-
-				books.add(new Book(productID, productName, description, price, publishDate, quantity, timesSold,
-						starRaiting, categoriesID, poster, authorName, genre));
-
+				try {
+					books.add(new Book(productName, description, price, publishDate, quantaty, categoriesID, poster, bookID, authorName, genre));
+				} catch (InvalidInfoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				res.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
+
 		return books;
 	}
 
 	public List<Computer> getAllComputers() {
 		List<Computer> computers = new ArrayList<>();
-		ResultSet res = null;
-		try (Statement st = this.getConnection().createStatement()) {
+		Statement st = null;
+		try {
+			st = this.getConnection().createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-			res = st.executeQuery(GET_ALL_COMPUTERS);
-			int indexProductID = res.findColumn("product_id");
-			int indexProductName = res.findColumn("product_name");
-			int indexDescription = res.findColumn("description");
-			int indexPrice = res.findColumn("price");
-			int indexPublishDate = res.findColumn("publish_date");
-			int indexQuantity = res.findColumn("quantity");
-			int indexTimesSold = res.findColumn("times_sold");
-			int indexStarRaiting = res.findColumn("star_raiting");
-			int indexPoster = res.findColumn("poster");
-			int indexCategoriesID = res.findColumn("categories_id");
-
+		String query = "SELECT * From amazing.products p JOIN amazing.computers k ON (p.product_id = k.computers_id);";
+				
+		try {
+			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
 
-				int productID = res.getInt(indexProductID);
-				String productName = res.getString(indexProductName);
-				String description = res.getString(indexDescription);
-				double price = res.getDouble(indexPrice);
-				LocalDate publishDate = res.getDate(indexPublishDate).toLocalDate();
-				int quantity = res.getInt(indexQuantity);
-				int timesSold = res.getInt(indexTimesSold);
-				int starRaiting = res.getInt(indexStarRaiting);
-				String poster = PREFIX_IMAGES + res.getString(indexPoster);
-				int categoriesID = res.getInt(indexCategoriesID);
-
+				String productName = res.getString("product_name");
+				String description = res.getString("description");
+				LocalDate publishDate = res.getDate("publish_date").toLocalDate();
+				double price = res.getDouble("price");
+				int quantaty = res.getInt("quantity");
+				int categoriesID = res.getInt("categories_id");
+				String poster =  PREFIX_IMAGES  + res.getString("poster");
 				int ssd = res.getInt("SSD");
-				int ram = res.getInt("RAM");
+				int ram = res.getInt("ram");
 				String operationSystem = res.getString("operation_system");
 				String processor = res.getString("processor");
 				try {
-					computers.add(new Computer(productID, productName, description, price, publishDate, quantity,
-							timesSold, starRaiting, categoriesID, poster, operationSystem, ssd, ram, processor));
+					computers.add(new Computer(productName, description, price, publishDate, quantaty, categoriesID, poster, operationSystem, ssd, ram, processor));
 				} catch (InvalidInfoException e) {
 					e.printStackTrace();
 				}
@@ -173,7 +131,6 @@ public class SearchDao extends AbstractDAO {
 		}
 
 		return computers;
-
 	}
 
 	public List<Product> getProductByName(String string) {
@@ -192,19 +149,15 @@ public class SearchDao extends AbstractDAO {
 		try {
 			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
-				int productID = res.getInt("product_id");
 				String productName = res.getString("product_name");
 				String description = res.getString("description");
 				LocalDate publishDate = res.getDate("publish_date").toLocalDate();
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
-				int timesSold = res.getInt("times_sold");
-				int starRaiting = res.getInt("star_raiting");
 				int categoriesID = res.getInt("categories_id");
-				String poster = PREFIX_IMAGES + res.getString("poster");
+				String poster =  PREFIX_IMAGES  + res.getString("poster");
 
-				products.add(new Product(productID, productName, description, price, publishDate, quantaty, timesSold,
-						starRaiting, categoriesID, poster));
+				products.add(new Product(productName, description, price, publishDate, quantaty, categoriesID, poster));
 			}
 		} catch (SQLException | InvalidInfoException e) {
 			System.out.println(e.getMessage());
@@ -212,9 +165,8 @@ public class SearchDao extends AbstractDAO {
 
 		return products;
 	}
-
-	public List<Product> getProductByPrice(double from, double to) {
-		System.out.println("leleeeee");
+	
+	public List<Product> getProductByPrice(double from, double to ) {
 
 		List<Product> products = new ArrayList<>();
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -225,31 +177,26 @@ public class SearchDao extends AbstractDAO {
 			e.printStackTrace();
 		}
 
-		String query = " SELECT * From amazing.products WHERE products.price BETWEEN " + from + "and " + to;
+		String query = " SELECT * From amazing.products WHERE products.price BETWEEN " + from + "and "+to;
 
-		System.out.println("leleeeee");
 		try {
 			ResultSet res = st.executeQuery(query);
 			while (res.next()) {
-				int productID = res.getInt("product_id");
 				String productName = res.getString("product_name");
 				String description = res.getString("description");
 				LocalDate publishDate = res.getDate("publish_date").toLocalDate();
 				double price = res.getDouble("price");
 				int quantaty = res.getInt("quantity");
-				int timesSold = res.getInt("times_sold");
-				int starRaiting = res.getInt("star_raiting");
 				int categoriesID = res.getInt("categories_id");
-				String poster = PREFIX_IMAGES + res.getString("poster");
+				String poster =  PREFIX_IMAGES  + res.getString("poster");
 
-				products.add(new Product(productID, productName, description, price, publishDate,
-						 quantaty, timesSold, starRaiting, categoriesID, poster));
+				products.add(new Product(productName, description, price, publishDate, quantaty, categoriesID, poster));
 			}
 		} catch (SQLException | InvalidInfoException e) {
 			System.out.println(e.getMessage());
 		}
 		System.out.println(products);
-
+		
 		return products;
 	}
 
