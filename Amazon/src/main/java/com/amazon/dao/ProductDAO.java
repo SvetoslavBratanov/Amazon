@@ -1,5 +1,6 @@
 package com.amazon.dao;
 
+<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+=======
+>>>>>>> c865323a182681d5ba9fed400480e32ca047f854
 import java.util.List;
 
 import org.springframework.stereotype.Service;

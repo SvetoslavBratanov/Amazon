@@ -1,6 +1,5 @@
 package com.amazon.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
@@ -12,18 +11,16 @@ public class Computer extends Product{
 	private int ssd;
 	private int ram;
 	private String processor;
-
-	public Computer(int productID, String productName, String description, double price, LocalDate publishDate,
-			int quantaty, int timesSold, int starRaiting, int categoriesID, String poster, 
-			String operationSystem,	int ssd, int ram, String processor) throws InvalidInfoException {
-		super(productID, productName, description, price, publishDate, quantaty, timesSold, starRaiting, categoriesID, poster);
-		this.computersID = this.getProductID();
-		this.setOperationSystem(operationSystem);
-		this.setSsd(ssd);
-		this.setRam(ram);
-		this.setProcessor(processor);
-	}
 	
+	public Computer(String productName, String description, double price, LocalDate publishDate, int quantaty,
+			int categoriesID, String poster, String operationSystem, int ssd, int ram, String processor) throws InvalidInfoException {
+		super(productName, description, price, publishDate, quantaty, categoriesID, poster);
+		this.operationSystem = operationSystem;
+		this.ssd = ssd;
+		this.ram = ram;
+		this.processor = processor;
+	}
+
 	public int getComputersID() {
 		return computersID;
 	}
@@ -49,7 +46,7 @@ public class Computer extends Product{
 	}
 
 	public void setSsd(int ssd) throws InvalidInfoException {
-		if(ssd >= 0) {
+		if(ssd > 0) {
 			this.ssd = ssd;
 		} else {
 
@@ -84,9 +81,8 @@ public class Computer extends Product{
 	}
 	
 	public static boolean isValidString(String name) {
-		//Pattern pattern = Pattern.compile("[A-Za-z0-9 ]+"); 
-		//return (name != null) && pattern.matcher(name).matches() && name.length() > 3;
-		return (name != null) && name.length() > 3;
+		Pattern pattern = Pattern.compile("[A-Za-z0-9 ]+"); 
+		return (name != null) && pattern.matcher(name).matches() && name.length() > 3;
 	}
 	
 	

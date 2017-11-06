@@ -1,179 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+    pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
-<html lang="en">
+<!--
+Template Name: Pleeness
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html>
 <head>
 <title>Amazing</title>
-<!-- for-mobile-apps -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords"
-	content="Electronic Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript">
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-	function hideURLbar(){ window.scrollTo(0,1); } 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href= "<c:url value="/resources/static/css/layout.css"/>" rel="stylesheet" type="text/css" media="all" />
 
-</script>
-<!-- //for-mobile-apps -->
-<!-- Custom Theme files -->
-
-<link href="<c:url value="/resources/static/css/bootstrap.css"/>"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="<c:url value="/resources/static/css/style.css"/>"
-	rel="stylesheet" type="text/css" media="all" />
-
-<!-- //Custom Theme files -->
-<!-- font-awesome icons -->
-<link href="<c:url value="/resources/static/css/font-awesome.css"/>">
-
-<!-- //font-awesome icons -->
-<!-- js -->
-<script src="<c:url value="/resources/static/js/jquery.min.js"/>"></script>
-<!-- //js -->
-<!-- web fonts -->
-<link href='//fonts.googleapis.com/css?family=Glegoo:400,700'
-	rel='stylesheet' type='text/css'>
-<link
-	href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-	rel='stylesheet' type='text/css'>
-<!-- //web fonts -->
-<!-- for bootstrap working -->
-<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/static/js/bootstrap-3.1.1.min.js"/>"></script>
-
-<!-- //for bootstrap working -->
-<!-- start-smooth-scrolling -->
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event) {
-			event.preventDefault();
-			$('html,body').animate({
-				scrollTop : $(this.hash).offset().top
-			}, 1000);
-		});
-	});
-</script>
-<!-- //end-smooth-scrolling -->
 </head>
-<body>
-	<!-- header modal -->
-</head>
-<body>
+<body id="top">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row0">
+  <div id="topbar" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <div class="fl_left">
+      <ul class="nospace inline pushright">
+        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+        <li><i class="fa fa-envelope-o"></i> deniittalents@gmail.com</li>
+      </ul>
+    </div>
+    <div class="fl_right">
+      <ul class="nospace inline pushright">
+      <c:choose>
+    <c:when test="${user != null}">
+    <form method = "get" action = "/logout">
+        <li> <a href="/logout">Logout</a></li>
+    </form>
+        <br />
+    </c:when>    
+    <c:otherwise>
+
+        <li><i class="fa fa-sign-in"></i> <a href="/login">Login</a></li>
+        <li><i class="fa fa-user"></i> <a href="/login">Register</a></li>        <br />
+    </c:otherwise>
+</c:choose>		
+      </ul>
+    </div>
+    <!-- ################################################################################################ -->
+  </div>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row1">
+  <header id="header" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <div id="logo" class="fl_left">
+      <h1><a href="index.html">Amazing</a></h1>
+    </div>
+    <div id="search" class="fl_right">
+      <form class="clear" method="get" action="/products">
+        <fieldset>
+          <legend>Search:</legend>
+			<input type="text" name="input" placeholder="Search...">
+          <button class="fa fa-search" type="submit" title="Search"><em>Search</em></button>
+        </fieldset>
+      </form>
+    </div>
+    <!-- ################################################################################################ -->
+  </header>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row2">
+  <nav id="mainav" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <ul class="clear">
+      <li class="active"><a href="index.html">Home</a></li>
+     
+     
+      <li><a href="/computers">Computers</a></li>
+      <li><a href="/books">Books</a></li>
+      <li><a href="/movies">Movies</a></li>
+    </ul>
+    <!-- ################################################################################################ -->
+  </nav>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script type="text/javascript" src="<c:url value="/resources/static/js/jquery.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/static/js/jquery.backtotop.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/static/js/jquery.mobilemenu.js"/>"></script>
 
 
-	<!-- header modal -->
-	<!-- header -->
-	<div class="header" id="home1">
-		<div class="container">
-			<div class="w3l_login">
-				<c:choose>
-					<c:when test="${user != null}">
-						<form method="get" action="/logout">
-							<button>Logout</button>
-						</form>
-						<br />
-					</c:when>
-					<c:otherwise>
-						<a href="login"><img
-							src="<c:url value="/resources/static/images/login.jpeg"/>"
-							width="80" height="80"></a>
-						<br />
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="w3l_logo">
-				<h1>
-					<a href="index">Amazing<span>Your stores. Your place.</span></a>
-				</h1>
-			</div>
-			<div class="search">
-				<input class="search_box" type="checkbox" id="search_box"> <label
-					class="icon-search" for="search_box"><span
-					class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-				<div class="search_form">
-					<form action="/products" method="get">
-						<input type="text" name="input" placeholder="Search..."> <input
-							type="submit" value="Send">
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- //header -->
-	<!-- navigation -->
-	<div class="navigation">
-		<div class="container">
-			<nav class="navbar navbar-default">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header nav_2">
-					<button type="button"
-						class="navbar-toggle collapsed navbar-toggle1"
-						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav">
-						<li><a href="index">Home</a></li>
-						<!-- Mega Menu -->
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Products <b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="col-sm-3">
-										<ul class="multi-column-dropdown">
-											<h6>
-												<a href="books">Books 
-											</h6>
-										</ul>
-									</div>
-									<div class="col-sm-3">
-										<ul class="multi-column-dropdown">
-											<h6>
-												<a href="computers">Computers 
-											</h6>
-										</ul>
-									</div>
-									<div class="col-sm-2">
-										<ul class="multi-column-dropdown">
-											<h6>
-												<a href="movies">Movies 
-											</h6>
-											<div class="col-sm-4">
-												<div class="w3ls_products_pos">
-													<h4>
-														30%<i>Off/-</i>
-													</h4>
-													<img src="images/1.jpg" alt=" " class="img-responsive" />
-												</div>
-											</div>
-											<div class="clearfix"></div>
-									</div>
+<!-- IE9 Placeholder Support -->
+<script type="text/javascript" src="<c:url value="/resources/static/js/jquery.placeholder.min.js"/>"></script>
 
-								</div>
-			</nav>
-		</div>
-	</div>
-	<!-- //navigation -->
-	<!-- banner -->
-	<div class="banner banner10">
-		<div class="container"></div>
-	</div>
-
-
-
+<!-- / IE9 Placeholder Support -->
 </body>
 </html>

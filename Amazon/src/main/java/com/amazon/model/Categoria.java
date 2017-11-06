@@ -2,7 +2,7 @@ package com.amazon.model;
 
 public class Categoria {
 	
-	private int categoryID;
+//	private int categoryID;
 	private String categoryName;
 	private Integer parentID;
 	

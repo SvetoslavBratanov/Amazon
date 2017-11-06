@@ -22,19 +22,19 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(int productID, String productName, String description, double price, LocalDate publishDate, int quantaty, int timesSold, int starRaiting, int categoriesID, String poster) throws InvalidInfoException {
+	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID, String poster) throws InvalidInfoException {
 		super();
-		this.setProductID(productID);
 		this.setProductName(productName); 
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setPublishDate(publishDate);
 		this.setQuantaty(quantaty);
-		this.setTimesSold(timesSold);
-		this.setStarRaiting(starRaiting);
+		this.timesSold = 0;
+		this.starRaiting = 0;
 		this.setCategoriesID(categoriesID);
 		this.setPoster(poster);
 	}
+<<<<<<< HEAD
 	
 	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty,int categoriesID) {
 		this.productName = productName;
@@ -45,11 +45,14 @@ public class Product {
 		this.categoriesID = categoriesID;
 	}
 	
+=======
+>>>>>>> c865323a182681d5ba9fed400480e32ca047f854
 
 
 	public int getProductID() {
 		return productID;
 	}
+
 
 
 	public void setProductID(int productID) {
