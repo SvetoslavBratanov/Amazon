@@ -15,6 +15,13 @@
 <body>
   <div class="login-page">
   <div class="form">
+  <c:if test="${not empty errorMessage}">
+			<h1>
+
+<c:out value="${errorMessage}"  />
+			</h1>
+
+</c:if>
     <form action = "/registration" method = "post" class="register-form">
       <input type="text" name = "name" placeholder="name"/>
       <input type="password"name = "password" placeholder="password"/>

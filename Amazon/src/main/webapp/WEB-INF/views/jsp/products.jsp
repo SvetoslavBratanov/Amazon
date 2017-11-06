@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<form action="productsByPrice" method = get>
+<form action="productsByPrice" method = get >
 <table style="width:20%"  style="width:30%">
   <tr>
     <th>from</th> 
@@ -27,7 +27,6 @@
 </table>
 <c:if test="${not empty errorMessage}">
 			<h1>
-
 <c:out value="${errorMessage}"  />
 			</h1>
 
@@ -41,6 +40,10 @@
 			<br>
 			<h1>
 			<c:out value="${product.productName}" />
+			</h1>
+			
+			<h1>
+			<c:out value="${product.price}" />
 			</h1>
 			<br>
 			<p>

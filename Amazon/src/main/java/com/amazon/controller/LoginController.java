@@ -31,10 +31,16 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request) throws InvalidInfoException {
+	public String login(HttpServletRequest request)  {
 		User user = new User();
-		user.setEmail(request.getParameter("email"));
-		user.setPassword(request.getParameter("password"));
+		try {
+			user.setEmail(request.getParameter("email"));
+			user.setPassword(request.getParameter("password"));
+
+		} catch (InvalidInfoException e1) {
+				request.setAttribute("errorMessage", e1.getMessage());
+				return "/login";
+		}
 		
 			try {
 				
@@ -45,10 +51,9 @@ public class LoginController {
 					return "redirect:/index";
 				}
 			} catch (SQLException e) {
-				request.setAttribute("errorMessage", "There is a problem with the database");
 				return "/error";
 			}
-		request.setAttribute("errorMessage", "You have not been registered");
+		request.setAttribute("errorMessage", "Invalid name or password!");
 		return "/login";
 	}
 
@@ -65,16 +70,11 @@ public class LoginController {
 		User user = new User();
 		try {
 			user.setEmail(request.getParameter("email"));
-			System.out.println("Email" +request.getParameter("email"));
 			user.setName(request.getParameter("name"));
-			System.out.println("Name" +request.getParameter("name"));
-
 			user.setPassword(request.getParameter("password"));
-			System.out.println("Pass" +request.getParameter("password"));
 
 		} catch (InvalidInfoException e) {
 			request.setAttribute("errorMessage", e.getMessage());
-			System.err.println(e.getMessage());
             return "/login";
 		}
 		
@@ -84,14 +84,13 @@ public class LoginController {
             request.setAttribute("errorMessage", e.getMessage());
             return "/login";
 		} catch (SQLException e) {
-			System.out.println("ERRROORRRR");
 			e.printStackTrace();
 			 request.setAttribute("errorMessage", "There is a problem with the database");
 			return "/error";
 		}
 		HttpSession session = request.getSession();
 		session.setAttribute("user" , user);
-		return "/index";
+		return "redirect:/index";
 	
 	}
 }
