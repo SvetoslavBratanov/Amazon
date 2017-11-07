@@ -13,12 +13,16 @@
 	rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
-	<form action="books" method="get">
+<body style="background-color:powderblue;">
 
+	<nav class="col-md-12">
+	<form action="books" method="get">
+		<nav class="col-md-4"> </nav>
 		<input placeholder="Price from" type="text" name="from" /> <input
 			placeholder="Price to" type="text" name="to" />
-		<button type="submit" value="Send" class="btn-success">Send</button>
+		<button type="submit" value="Send" class="btn-success">Search</button>
 	</form>
+	</n"src/main/webapp/WEB-INF/views/jsp/books.jsp"av>
 
 	<c:if test="${not empty errorMessage}">
 		<h1>
@@ -26,24 +30,30 @@
 		</h1>
 
 	</c:if>
+
+
 	<c:if test="${not empty books}">
-		<ul>
-			<c:forEach var="book" items="${books}">
 
-				<img src="<c:url value="${book.poster}"/>" height="420" width="420">
-				<br>
-				<h1>
-					<c:out value="${book.productName}" />
-				</h1>
+		<nav class="col-md-12"> <c:forEach var="book" items="${books}">
+			<nav class="col-md-6"> <img
+				src="<c:url value="${book.poster}"/>" height="150" width="150">
+			<br>
+			<form action="book" method="get">
+				<input type="hidden" name="productId" value="${book.productID}" />
+				<button type="submit" value="Send" class="btn-success">Show</button>
+			</form>
+			<h1>
+				<c:out value="${book.productName}" />
+			</h1>
 
-				<h1>
-					<c:out value="${book.price}" />
-				</h1>
-				<br>
-				<p>
-			</c:forEach>
-		</ul>
-
+			<h1>
+				<c:out value="Price: ${book.price}" />
+			</h1>
+		
+			<br>
+			<p>
+			</nav>
+		</c:forEach> </nav>
 	</c:if>
 </body>
 </html>

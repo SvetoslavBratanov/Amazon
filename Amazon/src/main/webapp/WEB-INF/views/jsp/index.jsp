@@ -19,6 +19,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 </head>
 <body id="top">
+<body background="resources/static/images/background.jpg">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -61,7 +62,7 @@ Licence URI: http://www.os-templates.com/template-terms
       <h1><a href="index.html">Amazing</a></h1>
     </div>
     <div id="search" class="fl_right">
-      <form class="clear" method="get" action="/products">
+      <form class="clear" method="get" action="/productsByName">
         <fieldset>
           <legend>Search:</legend>
 			<input type="text" name="input" placeholder="Search...">

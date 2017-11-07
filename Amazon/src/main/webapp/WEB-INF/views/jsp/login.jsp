@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Log In</title>
 <link href= "<c:url value="/resources/static/css/styleLogin.css"/>" rel="stylesheet" type="text/css"  />
 
 

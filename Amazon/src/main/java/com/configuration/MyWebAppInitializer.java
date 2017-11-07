@@ -2,9 +2,7 @@ package com.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-/**
- * @author imssbora
- */
+
 public class MyWebAppInitializer
       extends AbstractAnnotationConfigDispatcherServletInitializer {
 

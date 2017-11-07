@@ -18,25 +18,38 @@ public class Product {
 	private int categoriesID;
 	private String poster;
 	
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
 
-
-	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty, int categoriesID, String poster) throws InvalidInfoException {
+	public Product(int productID, String productName, String description, double price, LocalDate publishDate, int quantaty, int timesSold, int starRaiting, int categoriesID, String poster) throws InvalidInfoException {
 		super();
+		this.setProductID(productID);
 		this.setProductName(productName); 
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setPublishDate(publishDate);
 		this.setQuantaty(quantaty);
-		this.timesSold = 0;
-		this.starRaiting = 0;
+		this.setTimesSold(timesSold);
+		this.setStarRaiting(starRaiting);
 		this.setCategoriesID(categoriesID);
 		this.setPoster(poster);
 	}
+	
+	public Product(String productName, String description, double price, LocalDate publishDate, int quantaty,int categoriesID) {
+		this.productName = productName;
+		this.description = description;
+		this.price = price;
+		this.publishDate = publishDate;
+		this.quantity = quantaty;
+		this.categoriesID = categoriesID;
+	}
+	
+
 
 	public int getProductID() {
 		return productID;
 	}
-
 
 
 	public void setProductID(int productID) {
@@ -52,11 +65,11 @@ public class Product {
 
 
 	public void setProductName(String productName) throws InvalidInfoException {
-		if(validateSring(productName)) {
+	//	if(validateSring(productName)) {
 			this.productName = productName;
-		} else {
-			throw new InvalidInfoException("Invalid product name");
-		}
+//		} else {
+//			throw new InvalidInfoException("Invalid product name");
+//		}
 	}
 
 
@@ -68,11 +81,11 @@ public class Product {
 
 
 	public void setDescription(String description) throws InvalidInfoException {
-		if(validateSring(description)) {
+//		if(validateSring(description)) {
 			this.description = description;
-		} else {
-			throw new InvalidInfoException("Invalid product name");
-		}	
+//		} else {
+//			throw new InvalidInfoException("Invalid description");
+//		}	
 	}
 
 
@@ -162,7 +175,13 @@ public class Product {
 		return poster;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Product [productID=" + productID + ", productName=" + productName + ", description=" + description
+				+ ", price=" + price + ", publishDate=" + publishDate + ", quantity=" + quantity + ", timesSold="
+				+ timesSold + ", starRaiting=" + starRaiting + ", categoriesID=" + categoriesID + ", poster=" + poster
+				+ "]";
+	}
 
 	public void setPoster(String poster) throws InvalidInfoException {
 		if(poster.contains(".jpeg") || poster.contains(".png") || poster.contains(".jpg")){

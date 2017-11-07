@@ -13,12 +13,16 @@
 	rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
-	<form action="movies" method="get">
+<body style="background-color:powderblue;">
 
+	<nav class="col-md-12">
+	<form action="movies" method="get">
+		<nav class="col-md-4"> </nav>
 		<input placeholder="Price from" type="text" name="from" /> <input
 			placeholder="Price to" type="text" name="to" />
-		<button type="submit" value="Send" class="btn-success">Send</button>
+		<button type="submit" value="Send" class="btn-success">Search</button>
 	</form>
+	</n"src/main/webapp/WEB-INF/views/jsp/movies.jsp"av>
 
 	<c:if test="${not empty errorMessage}">
 		<h1>
@@ -26,24 +30,29 @@
 		</h1>
 
 	</c:if>
+
+
 	<c:if test="${not empty movies}">
-		<ul>
-			<c:forEach var="movie" items="${movies}">
 
-				<img src="<c:url value="${movie.poster}"/>" height="420" width="420">
-				<br>
-				<h1>
-					<c:out value="${movie.productName}" />
-				</h1>
+		<nav class="col-md-12"> <c:forEach var="movie" items="${movies}">
+			<nav class="col-md-6"> <img
+				src="<c:url value="${movie.poster}"/>" height="150" width="150">
+			<br>
+			<form action="/movie" method="get">
+				<input type="hidden" name="productId" value="${movie.productID}" />
+				<button type="submit" value="Send" class="btn-success">Show</button>
+			</form>
+			<h1>
+				<c:out value="${movie.productName}" />
+			</h1>
 
-				<h1>
-					<c:out value="${movie.price}" />
-				</h1>
-				<br>
-				<p>
-			</c:forEach>
-		</ul>
-
+			<h1>
+				<c:out value="${movie.price}" />
+			</h1>
+			<br>
+			<p>
+			</nav>
+		</c:forEach> </nav>
 	</c:if>
 </body>
 </html>
